@@ -1,17 +1,30 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
+  "name": "felipe-service",
+  "description": "> Project description",
   "author": "",
-  "license": "",
+  "license": "ISC",
   "engines": {
     "node": ">=6.13.0"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
-  }
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git"
+  },
+  "version": "1.0.0",
+  "main": ".eslintrc.js",
+  "directories": {
+    "example": "example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpt11-spider-n-sleet/felipe-service.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rpt11-spider-n-sleet/felipe-service/issues"
+  },
+  "homepage": "https://github.com/rpt11-spider-n-sleet/felipe-service#readme"
 }
