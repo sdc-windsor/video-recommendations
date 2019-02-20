@@ -1,8 +1,6 @@
 var Movie = require('./index.js').Movie;
 var data = require('./data.js');
 
-
-
 Movie.remove({}, function(err) { 
   console.log('collection removed'); //empty the movie collection
 });
@@ -14,6 +12,6 @@ data.createObject(data.urls, data.thumbnails)
         console.log('saved in database');
       })
       .catch((err) => {
-        'there was an error saving into the database';
+        console.log('there was an error saving into the database', err);
       }); 
   });
