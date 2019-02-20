@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "nodemon ./server/index.js",
-    "seed": "node ./database/index.js",
+    "seed": "node ./database/seed.js",
     "test": "mocha"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "fs": "0.0.1-security",
     "gridfs-stream": "^1.1.1",
     "mocha": "^5.2.0",
+    "mongoose": "^5.4.14",
     "nodemon": "^1.18.10",
     "parser": "^0.1.4",
     "request-promise": "^4.2.2",

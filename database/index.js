@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
-var data = require('./data.js');
-mongoose.connect('mongodb://localhost/movies', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/movies', { useNewUrlParser: true });
 
 const movieSchema = new mongoose.Schema({
   id: Number,
@@ -14,8 +13,9 @@ const movieSchema = new mongoose.Schema({
 });
 
 const Movie = mongoose.model('Movie', movieSchema);
- 
+
 module.exports.Movie = Movie;
+module.exports.movieSchema = movieSchema;
 
     
 
