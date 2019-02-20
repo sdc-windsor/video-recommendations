@@ -61,7 +61,6 @@ async function createObject(arr1, arr2) {
     }
     objs.push(obj);
   }
-  console.log(objs)
   return objs;
 }
 

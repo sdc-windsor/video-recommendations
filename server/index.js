@@ -2,17 +2,13 @@ var express = require('express');
 
 var parser = require('body-parser');
 
-var axios = require('axios')
-
 var rp = require('request-promise');
- 
-var request = require('request');
 
 var app = express();
 
 app.use(parser.json());
 
-var PORT = 8080;
+var PORT = process.env.PORT || 8080;
 
 app.listen(PORT, (err) => {
   if (err) {
@@ -49,14 +45,14 @@ app.post('/videos/:video_id', (req, res) => {
       //  },
       //]
 
-      rp.get(`/thumbnails/12,11,2`)
-      })
-      .then((results) => {
-        console.log(results);
-      })
-      .catch((err) => {
-        console.log('there was an error', err)
-      })
-})
+      rp.get('/thumbnails/12,11,2');
+    })
+    .then((results) => {
+      console.log(results);
+    })
+    .catch((err) => {
+      console.log('there was an error', err);
+    });
+});
 
 
