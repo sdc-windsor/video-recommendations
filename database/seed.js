@@ -2,12 +2,12 @@ var Movie = require('./index.js').Movie;
 var dataMovie = require('./data.js');
 
 
-seedDatabase = function(collection, data) {
+seedDatabase = (collection, data) => {
   collection.deleteMany({}, function(err) { 
     console.log('collection removed'); //empty the movie collection
   });
   
-  data.createObject(data.urls, data.thumbnails)
+  data.createVideoList(data.urls, data.thumbnails)
     .then((results) => {
       collection.insertMany(results)
         .then((results) => {

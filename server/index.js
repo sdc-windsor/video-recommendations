@@ -8,6 +8,8 @@ var app = express();
 
 app.use(parser.json());
 
+app.use(express.static(__dirname + '/../client/dist'));
+
 var PORT = process.env.PORT || 8080;
 
 app.listen(PORT, (err) => {

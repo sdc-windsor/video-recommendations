@@ -9,7 +9,8 @@
   "scripts": {
     "start": "nodemon ./server/index.js",
     "seed": "node ./database/seed.js",
-    "test": "mocha"
+    "test": "mocha",
+    "react-dev": "webpack -d --watch"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -23,11 +24,22 @@
     "mongoose": "^5.4.14",
     "nodemon": "^1.18.10",
     "parser": "^0.1.4",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
     "request-promise": "^4.2.2",
     "supertest": "^3.4.2"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git"
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
   },
   "version": "1.0.0",
   "main": ".eslintrc.js",

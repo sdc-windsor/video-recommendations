@@ -1,6 +1,5 @@
 var mocha = require('mocha');
 
-// var db = require('../database/index.js');
 const data = require('../database/data.js');
 
 const chai = require('chai');
@@ -9,10 +8,7 @@ const expect = chai.expect;
 
 const mongoose = require('mongoose');
 
-//Connect to MongoDB Here
-
 var testModel = mongoose.model('testModel', new mongoose.Schema({
-  id: Number,
   url: String,
   thumbnail: String,
   category: String,
@@ -24,7 +20,7 @@ var testModel = mongoose.model('testModel', new mongoose.Schema({
 
 before(function (done) {
   //Connect to MongoDB Here
-  mongoose.connect('mongodb://localhost/testdb');
+  mongoose.connect('mongodb://localhost/testdb', { useNewUrlParser: true });
   mongoose.connection.once('open', function () {
     console.log('Connected to MongoDB!');
     done();
@@ -38,33 +34,50 @@ beforeEach(function (done) {
     if (err) {
       console.log('there was an error', err);
     }
-    done();
+    data.createVideoList(data.urls, data.thumbnails)
+      .then((results) => {
+        return testModel.insertMany(results, (err) => {
+          if (err) {
+            console.log('There was an error when inserting the data', err);
+          } else {
+            console.log('documents inserted');
+            done();
+          }
+        });
+      });
   });
 });
 
 
 describe('seeding function', () => {
   it('should add 20 entries (movies) into database', (done) => {
+    testModel.estimatedDocumentCount((err, res) => {
+      if (err) {
+        console.log('There was an error finding the estimated count', err);
+      } else {
+        expect(res).to.equal(20);
+        done();
+      }
+    });
+  });
+        
+
+  it('should save documents with 8 valid fields each', (done) => {
     
-    data.createObject(data.urls, data.thumbnails)
-      .then((results) => {
-        return testModel.insertMany(results, (err) => {
-          if (err) {
-            console.log('There was an error when inserting the data', err);
-          } else {
-            testModel.estimatedDocumentCount((err, res) => {
-              if (err) {
-                console.log('There was an error finding the estimated count', err);
-              } else {
-                expect(res).to.equal(20);
-                done();
-              }
-            });
-          }
-        });
-      })
-      .catch((err) => {
-        console.log(('there was an error saving into testdb', err));
-      }); 
+    testModel.find({ videoId: 1 }, (err, res) => {
+      if (err) {
+        console.log('did not find the video', err);
+      } else {
+        var foundEntry = res[0];
+        expect(foundEntry.url).to.exist;
+        expect(foundEntry.thumbnail).to.exist;
+        expect(foundEntry.category).to.exist;
+        expect(foundEntry.videoId).to.exist;
+        expect(foundEntry.title).to.exist;
+        expect(foundEntry.author).to.exist;
+        expect(foundEntry.plays).to.exist;
+        done();
+      }
+    });
   });
 });

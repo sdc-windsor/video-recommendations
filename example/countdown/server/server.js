@@ -5,6 +5,7 @@ const app = express();
 const port = process.env.PORT || 3002;
 
 app.use(morgan('dev'));
+
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.listen(port, () => {
