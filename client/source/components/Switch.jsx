@@ -14,26 +14,24 @@ class SwitchExample extends Component {
  
   render() {
     return (
-      <label>
-        <div>
-          <div className="switchContainer">
-            <Switch 
-              className="switch" 
-              onChange={this.handleChange} 
-              checked={this.state.checked}
-              height={15}
-              width={30}
-              uncheckedIcon={false}
-              checkedIcon={false}
-              offColor={'#8498a4'}
-              onColor={'#00adef'}
-            />
-          </div>
-          <div className="switchName">
-            <p className="switch">Autoplay next video</p>
-          </div>
+      <div className="switchContainer" >
+        <div className="switchDiv">
+          <Switch 
+            className="switch" 
+            onChange={this.handleChange} 
+            checked={this.state.checked}
+            height={15}
+            width={30}
+            uncheckedIcon={false}
+            checkedIcon={false}
+            offColor={'#8498a4'}
+            onColor={'#00adef'}
+          />
         </div>
-      </label>
+        <div className="switchName">
+          <p className="switch">Autoplay next video</p>
+        </div>
+      </div>
     );
   }
 }

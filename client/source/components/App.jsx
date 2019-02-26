@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Alert } from 'reactstrap';
 import Switch from './Switch.jsx';
 import Axios from 'axios';
 import VideoContainer from './VideoContainer.jsx';
@@ -40,7 +39,7 @@ export default class App extends Component {
     return (
       <div >
         <div className="sidenav">
-          <h4 id='title'>More from Animation</h4>
+          <h4 id='title'>Related Videos</h4>
           <Switch />
           <VideoContainer thumbnails = {thumbnails}/>
         </div>

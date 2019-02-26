@@ -13,9 +13,25 @@ const movieSchema = new mongoose.Schema({
 
 const Movie = mongoose.model('Movie', movieSchema);
 
+let retrieveAll = () => {
+  return new Promise((resolve, reject) => {
+    Movie.find({}, (err, res) => {
+      if (err) {
+        console.log('there was an error retrieving from db', err);
+        reject(err);
+      } else {
+        console.log('found results in db', res);
+        resolve(res);
+      }
+    });
+  });
+};
+
+
 module.exports = {
   Movie,
-  movieSchema
+  movieSchema,
+  retrieveAll
 };
     
 

@@ -31,26 +31,19 @@ export default class Video extends Component {
 
   render() {
 
-    let {thumbnails} = this.props;
-
     return (
       <div>
-        <div >
-          {this.thumbnails.map((ele, ind) => {
-            return <div className="thumbnailContainer">
-              <div className="wrapper">
-                <img key = {ind} className="thumbnails" src={ele}/>
-                <h3 className="movieName">The Second Coming
-                  <a href="#"></a>
-                </h3>
-                <div>
-                  <a className="author" href="#">Author</a>
-                </div>
-              </div>
-            </div>;
-          })}
-        </div>
-        
+        {this.thumbnails.map((ele, ind) => {
+          return <div className="thumbnailContainer">
+            {ind === 0 ? <img className="firstItem thumbnailsImage" key = {ind} src={ele}/> : 
+              <img key = {ind} className="thumbnailsImage" src={ele}/>
+            }
+            <div className="videoTextContainer">
+              <div className="videoName">Video Title</div>
+              <div className="videoAuthor">Video Author</div>
+            </div>
+          </div>;
+        })}        
       </div>
     );
   }

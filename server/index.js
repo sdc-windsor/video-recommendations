@@ -6,6 +6,8 @@ var rp = require('request-promise');
 
 var app = express();
 
+var db = require('../database/index');
+
 app.use(parser.json());
 
 app.use(express.static(__dirname + '/../client/dist'));
@@ -58,3 +60,15 @@ app.post('/videos/:video_id', (req, res) => {
 });
 
 
+app.get('/featured/', (req, res) => {
+  console.log('I have reached the server');
+  db.retrieveAll()
+    .then((result) => {
+      console.log('got results to server', result);
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log('could no get results to server', err);
+      res.status(404).send('Not found', err);
+    });
+});
