@@ -155,8 +155,9 @@ body {
 
 .button {
   transform: scale(0.98);
-  background-color: white;
-  border-color: rgb(221, 227, 229);  padding: 15px 32px;
+  padding: 15px 32px;
+  background-color: rgb(221, 227, 229);
+  border-color: rgb(221, 227, 229);
   text-align: center;
   text-decoration: none;
   display: inline-block;
