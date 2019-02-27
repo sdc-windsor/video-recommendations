@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Switch from './Switch.jsx';
 import Axios from 'axios';
 import VideoContainer from './VideoContainer.jsx';
+import Button from './Button.jsx';
+
 
 
 
@@ -12,6 +14,7 @@ export default class App extends Component {
     this.state = {
       thumbnails: []
     };
+    const { classes } = props;
     
   }
 
@@ -35,6 +38,7 @@ export default class App extends Component {
   render() {
 
     let {thumbnails} = this.state;
+    const { classes } = this.props;
 
     return (
       <div >
@@ -42,6 +46,9 @@ export default class App extends Component {
           <h4 id='title'>Related Videos</h4>
           <Switch />
           <VideoContainer thumbnails = {thumbnails}/>
+          <div className="buttonContainer">
+            <Button />
+          </div>
         </div>
       </div>
     );

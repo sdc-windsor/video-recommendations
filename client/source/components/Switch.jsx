@@ -14,7 +14,7 @@ class SwitchExample extends Component {
  
   render() {
     return (
-      <div className="switchContainer" >
+      <div className="switchButtonContainer" >
         <div className="switchDiv">
           <Switch 
             className="switch" 
@@ -29,7 +29,7 @@ class SwitchExample extends Component {
           />
         </div>
         <div className="switchName">
-          <p className="switch">Autoplay next video</p>
+          <p className="switchText">Autoplay next video</p>
         </div>
       </div>
     );
