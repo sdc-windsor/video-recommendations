@@ -14,7 +14,8 @@ body {
     overflow-x: hidden;
     padding-top: 20px;
     border-left: .0625em solid ;
-    margin-bottom: 20%
+    margin-bottom: 20%;
+    margin-top:500px;
   }
   
   .sidenav a {
