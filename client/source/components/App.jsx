@@ -19,7 +19,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    Axios.get('//vimeo.com/api/v2/video/318070817.json')
+    Axios.get('localhost:3000/videos/10')
       .then((res) => {
         console.log('result is here', res);
         let hold = [];
@@ -41,7 +41,7 @@ export default class App extends Component {
     const { classes } = this.props;
 
     return (
-      <div >
+      <div id="masterContainer" >
         <div className="sidenav">
           <h4 id='title'>Related Videos</h4>
           <Switch />
