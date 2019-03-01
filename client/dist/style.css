@@ -2,21 +2,25 @@ body {
     background: lightgray
 }
 
+#masterContainer {
+  float:right;
+}
+
 .sidenav {
     height: 100%;
-    width: 35%;
+    /* width: 34%; */
     position: relative;
     z-index: 1;
     top: 0;
     right: 0;
-    left: 65%;
+    /* left: 65%; */
     bottom:10px;
     background-color: white;
     overflow-x: hidden;
     padding-top: 20px;
-    border-left: .0625em solid ;
+    border-left: .0625em solid;
+    border-color:lightgray;
     margin-bottom: 20%;
-    margin-top:500px;
   }
   
   .sidenav a {
