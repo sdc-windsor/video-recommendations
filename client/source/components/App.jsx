@@ -19,19 +19,9 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    Axios.get('localhost:3000/videos/10')
-      .then((res) => {
-        console.log('result is here', res);
-        let hold = [];
-        let src = res.data[0].thumbnail_small;
-        hold.push(src);
-        this.setState({
-          thumbnails: hold
-        });
-      })
-      .catch((err) => {
-        console.log('there was an error', err);
-      });
+    console.log('heloooooooooooooooooooooooo')
+    let id = window.location.pathname;
+    console.log('id is here', id);
   }
 
   
