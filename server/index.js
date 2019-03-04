@@ -1,16 +1,13 @@
 var express = require('express');
-
 var parser = require('body-parser');
-
+var cors = require('cors');
 var rp = require('request-promise');
-
 var app = express();
-
 var db = require('../database/index');
 
 app.use(parser.json());
-
 app.use(express.static(__dirname + '/../client/dist'));
+app.use(cors());
 
 var PORT = process.env.PORT || 8080;
 
@@ -60,11 +57,12 @@ app.post('/videos/:video_id', (req, res) => {
 });
 
 
-app.get('/featured/', (req, res) => {
-  console.log('I have reached the server');
-  db.retrieveAll()
+app.get('/featured/:category', (req, res) => {
+  var category = req.params.category;
+  
+  db.findMoviesByCategory(category)
     .then((result) => {
-      console.log('got results to server', result);
+      console.log('got results from server', result);
       res.send(result);
     })
     .catch((err) => {

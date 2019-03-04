@@ -13,9 +13,12 @@ const movieSchema = new mongoose.Schema({
 
 const Movie = mongoose.model('Movie', movieSchema);
 
-let retrieveAll = () => {
+let findMoviesByCategory = (inputCategory) => {
+  inputCategory = inputCategory.toLowerCase();
+  var query = {category:inputCategory};
+
   return new Promise((resolve, reject) => {
-    Movie.find({}, (err, res) => {
+    Movie.find(query, (err, res) => {
       if (err) {
         console.log('there was an error retrieving from db', err);
         reject(err);
@@ -31,7 +34,7 @@ let retrieveAll = () => {
 module.exports = {
   Movie,
   movieSchema,
-  retrieveAll
+  findMoviesByCategory
 };
     
 
