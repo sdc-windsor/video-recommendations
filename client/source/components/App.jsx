@@ -62,6 +62,7 @@ export default class App extends Component {
   }
 
   changeVideo(inputId) {
+    Axios.get(`http://localhost:4003/test/${inputId}`)
     
   } 
 
