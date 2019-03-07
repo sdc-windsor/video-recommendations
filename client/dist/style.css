@@ -1,6 +1,8 @@
 #Recommendations {
   width: 34%;
   float:right;
+  border-left: .0625em solid;
+  border-color: lightgray;
 }
 
 body {
@@ -17,8 +19,8 @@ body {
     background-color: white;
     overflow-x: hidden;
     padding-top: 20px;
-    border-left: .0625em solid;
-    border-color:lightgray;
+    /* border-left: .0625em solid;
+    border-color:lightgray; */
     margin-bottom: 20%;
   }
   
