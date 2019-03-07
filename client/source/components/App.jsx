@@ -9,7 +9,6 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.changeThumbnails = this.changeThumbnails.bind(this);
-    this.changeVideo = this.changeVideo.bind(this);
 
     this.state = {
       thumbnails: []
