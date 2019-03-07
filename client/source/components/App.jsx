@@ -20,50 +20,50 @@ export default class App extends Component {
   componentDidMount() {
     let id = window.location.pathname;
     id === '/' ? id = 1 : id = Number(id.split('/')[1]);
-    Axios.get(`http://localhost:8081/categories/${id}`)
+    Axios.get(`http://localhost:8082/categories/${id}`)
 
-    .then((data) => {
-      var targetCategory = data.data.categories[0];
-      Axios.get(`http://localhost:8081/videosByCategory/${targetCategory}`)
+      .then((data) => {
+        var targetCategory = data.data.categories[0];
+        Axios.get(`http://localhost:8082/videosByCategory/${targetCategory}`)
 
-      .then((videosByCategory) => {
-        console.log('here are the videos', videosByCategory )
-        var ids = videosByCategory.data.map((ele) => {
-          return ele.video_id
-        })
-       var params = ids.join('%2C');
-       const url = 'http://videoplayerservice-env.cdi5d5qypg.us-east-2.elasticbeanstalk.com';
-       Axios.get(`${url}/thumbnails/${params}`)
+          .then((videosByCategory) => {
+            console.log('here are the videos', videosByCategory );
+            var ids = videosByCategory.data.map((ele) => {
+              return ele.video_id;
+            });
+            var params = ids.join('%2C');
+            const url = 'http://videoplayerservice-env.cdi5d5qypg.us-east-2.elasticbeanstalk.com';
+            Axios.get(`${url}/thumbnails/${params}`)
 
-       .then((thumbnailsFromOther) => {
-        console.log('here are the thumbnails=============', thumbnailsFromOther);
-        let myUrl = `http://sidebar-component-env.phjkgcp7vm.us-east-2.elasticbeanstalk.com`
-        Axios.get(`${myUrl}/featured/${targetCategory}`)
+              .then((thumbnailsFromOther) => {
+                console.log('here are the thumbnails=============', thumbnailsFromOther);
+                let myUrl = 'http://sidebar-component-env.phjkgcp7vm.us-east-2.elasticbeanstalk.com';
+                Axios.get(`${myUrl}/featured/${targetCategory}`)
 
-        .then((thumbnailsFromDb) => {
-          console.log('these are the movies from database', thumbnailsFromDb);
+                  .then((thumbnailsFromDb) => {
+                    console.log('these are the movies from database', thumbnailsFromDb);
 
-          var finalThumbnails = thumbnailsFromDb.data.concat(thumbnailsFromOther.data.slice(0,8));
-          console.log('final thumbnails', finalThumbnails);
+                    var finalThumbnails = thumbnailsFromDb.data.concat(thumbnailsFromOther.data.slice(0, 8));
+                    console.log('final thumbnails', finalThumbnails);
           
-          this.changeThumbnails(finalThumbnails);
-        })
-       })
+                    this.changeThumbnails(finalThumbnails);
+                  });
+              });
+          });
       })
-    })
-    .catch((err) => {
-      console.log('there was an error', err)
-    })
+      .catch((err) => {
+        console.log('there was an error', err);
+      });
   }
 
   changeThumbnails(inputThumbnails) {
     this.setState({
       thumbnails: inputThumbnails
-    })
+    });
   }
 
   changeVideo(inputId) {
-    Axios.get(`http://localhost:4003/test/${inputId}`)
+    Axios.get(`http://localhost:4003/test/${inputId}`);
     
   } 
 
