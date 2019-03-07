@@ -9,12 +9,19 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.changeThumbnails = this.changeThumbnails.bind(this);
+    this.addThumbnails = this.addThumbnails.bind(this);
 
     this.state = {
       thumbnails: []
     };
     const { classes } = props;
+
+    this.thumbnails;
+
+    this.initial = 0;
   }
+
+  
 
   componentDidMount() {
     let id = window.location.pathname;
@@ -42,7 +49,14 @@ export default class App extends Component {
                   .then((thumbnailsFromDb) => {
                     console.log('these are the movies from database', thumbnailsFromDb);
 
-                    var finalThumbnails = thumbnailsFromDb.data.concat(thumbnailsFromOther.data.slice(0, 8));
+                    var totalThumbnails = thumbnailsFromDb.data.concat(thumbnailsFromOther.data);
+
+                    this.thumbnails = totalThumbnails;
+
+                    var finalThumbnails = totalThumbnails.slice(0, this.initial + 10);
+
+                    this.initial = this.initial + 10;
+
                     console.log('final thumbnails', finalThumbnails);
           
                     this.changeThumbnails(finalThumbnails);
@@ -61,6 +75,14 @@ export default class App extends Component {
     });
   }
 
+  addThumbnails() {
+    this.initial = this.initial + 10;
+    var additionalThumbnails = this.thumbnails.slice(0, this.initial);
+    this.setState({
+      thumbnails: additionalThumbnails
+    });
+  }
+
 
   render() {
 
@@ -74,7 +96,7 @@ export default class App extends Component {
           <Switch />
           <VideoContainer thumbnails = {thumbnails} changeVideo = {this.changeVideo}/>
           <div className="buttonContainer">
-            <Button />
+            <Button addThumbnails = {this.addThumbnails} />
           </div>
         </div>
       </div>
