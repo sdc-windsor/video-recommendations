@@ -38,7 +38,7 @@ export default class App extends Component {
        .then((thumbnailsFromOther) => {
         console.log('here are the thumbnails=============', thumbnailsFromOther);
         let myUrl = `http://sidebar-component-env.phjkgcp7vm.us-east-2.elasticbeanstalk.com`
-        Axios.get(`${url}/featured/${targetCategory}`)
+        Axios.get(`${myUrl}/featured/${targetCategory}`)
 
         .then((thumbnailsFromDb) => {
           console.log('these are the movies from database', thumbnailsFromDb);
