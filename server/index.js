@@ -19,41 +19,9 @@ app.listen(PORT, (err) => {
   }
 });
 
-app.post('/videos/:video_id', (req, res) => {
-
-  var category = req.params.Categories[0];
-  
-  rp.get(`/videosByCategory/${category}`)
-
-    .then((results) => {
-
-      //AT THIS POINT, RESULTS SHOULD LOOK LIKE
-      //[
-      // 	{
-      // 		Video_id: 0012,
-      // 		Description: ‘This is a description for video 0012’,
-      // 	  Categories: [ ‘Animation’, ‘jazz’, ‘funny’]
-      //  },
-      //  {
-      // 		Video_id: 0011,
-      // 		Description: ‘This is a description for video 0011’,
-      // 	  Categories: [ ‘Animation’, funny]
-      //   },
-      //  {
-      // 		Video_id: 0002,
-      // 		Description: ‘This is a description for video 0002’,
-      // 	  Categories: [ Animation]
-      //  },
-      //]
-
-      rp.get('/thumbnails/12,11,2');
-    })
-    .then((results) => {
-      console.log(results);
-    })
-    .catch((err) => {
-      console.log('there was an error', err);
-    });
+app.get('/collections', (req, res) => {
+  var randomnumber = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+  res.send(randomnumber);
 });
 
 
