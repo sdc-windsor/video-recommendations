@@ -20,6 +20,7 @@ app.listen(PORT, (err) => {
 });
 
 app.get('/collections', (req, res) => {
+  console.log('req is here', req);
   var randomnumber = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
   res.send(randomnumber);
 });
