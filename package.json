@@ -7,7 +7,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "start": "node ./server/index.js",
+    "start": "nodemon ./server/index.js",
     "seed": "node ./database/seed.js",
     "test": "mocha",
     "react-dev": "webpack -d --watch",
