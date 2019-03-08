@@ -26,11 +26,13 @@ export default class App extends Component {
   componentDidMount() {
     let id = window.location.pathname;
     id === '/' ? id = 1 : id = Number(id.split('/')[1]);
-    Axios.get(`http://localhost:8082/categories/${id}`)
+    var urlCategory = 'http://huyservice.gsm3yc37rb.us-west-1.elasticbeanstalk.com';
+    Axios.get(`${urlCategory}/categories/${id}`)
 
       .then((data) => {
         var targetCategory = data.data.categories[0];
-        Axios.get(`http://localhost:8082/videosByCategory/${targetCategory}`)
+        var urlVideoByCategory = 'http://huyservice.gsm3yc37rb.us-west-1.elasticbeanstalk.com';
+        Axios.get(`${urlVideoByCategory}/videosByCategory/${targetCategory}`)
 
           .then((videosByCategory) => {
             console.log('here are the videos', videosByCategory );
