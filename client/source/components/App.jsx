@@ -21,18 +21,20 @@ export default class App extends Component {
     this.initial = 0;
   }
 
-  
+
 
   componentDidMount() {
-    
+
     let id = window.location.pathname;
     id === '/' ? id = 1 : id = Number(id.split('/')[1]);
-    var urlCategory = 'http://huyservice.gsm3yc37rb.us-west-1.elasticbeanstalk.com';
+    //var urlCategory = 'http://huyservice.gsm3yc37rb.us-west-1.elasticbeanstalk.com';
+    var urlCategory = 'http://localhost:8081';
     Axios.get(`${urlCategory}/categories/${id}`)
 
       .then((data) => {
         var targetCategory = data.data.categories[0];
-        var urlVideoByCategory = 'http://huyservice.gsm3yc37rb.us-west-1.elasticbeanstalk.com';
+        //var urlVideoByCategory = 'http://huyservice.gsm3yc37rb.us-west-1.elasticbeanstalk.com';
+        var urlVideoByCategory = 'http://localhost:8081';
         Axios.get(`${urlVideoByCategory}/videosByCategory/${targetCategory}`)
 
           .then((videosByCategory) => {
@@ -57,7 +59,7 @@ export default class App extends Component {
                     var finalThumbnails = totalThumbnails.slice(0, this.initial + 10);
                     this.initial = this.initial + 10;
                     console.log('final thumbnails', finalThumbnails);
-          
+
                     this.changeThumbnails(finalThumbnails);
                   });
               });
@@ -104,4 +106,4 @@ export default class App extends Component {
 }
 
 
- 
+
