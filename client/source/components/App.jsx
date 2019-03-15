@@ -10,23 +10,36 @@ export default class App extends Component {
     super(props);
     this.changeThumbnails = this.changeThumbnails.bind(this);
     this.addThumbnails = this.addThumbnails.bind(this);
+    this.changeVideo = this.changeVideo.bind(this);
 
     this.state = {
       thumbnails: []
     };
-    const { classes } = props;
-
     this.thumbnails;
-
     this.initial = 0;
   }
 
-
-
   componentDidMount() {
-
     let id = window.location.pathname;
     id === '/' ? id = 1 : id = Number(id.split('/')[1]);
+    this.changeVideo(id);
+  }
+
+  changeThumbnails(inputThumbnails) {
+    this.setState({
+      thumbnails: inputThumbnails
+    });
+  }
+
+  addThumbnails() {
+    this.initial = this.initial + 10;
+    var additionalThumbnails = this.thumbnails.slice(0, this.initial);
+    this.setState({
+      thumbnails: additionalThumbnails
+    });
+  }
+
+  changeVideo(id) {
     //var urlCategory = 'http://huyservice.gsm3yc37rb.us-west-1.elasticbeanstalk.com';
     var urlCategory = 'http://localhost:8081';
     Axios.get(`${urlCategory}/categories/${id}`)
@@ -70,25 +83,9 @@ export default class App extends Component {
       });
   }
 
-  changeThumbnails(inputThumbnails) {
-    this.setState({
-      thumbnails: inputThumbnails
-    });
-  }
-
-  addThumbnails() {
-    this.initial = this.initial + 10;
-    var additionalThumbnails = this.thumbnails.slice(0, this.initial);
-    this.setState({
-      thumbnails: additionalThumbnails
-    });
-  }
-
-
   render() {
 
     let {thumbnails} = this.state;
-    const { classes } = this.props;
 
     return (
       <div id="masterContainer" >

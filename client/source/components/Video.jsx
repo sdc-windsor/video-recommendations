@@ -7,14 +7,14 @@ export default class Video extends Component {
   }
 
   render() {
-    let {thumbnails, changeVideo} = this.props;
-    var randomId = Math.floor(Math.random() * 100); 
+
+    var randomId = Math.floor(Math.random() * 100);
     return (
       <div>
-        {thumbnails.map((ele, ind) => {
+        { this.props.thumbnails.map((ele, ind) => {
           return <div className="thumbnailContainer">
-            <div className="imageContainer" onClick = {() => { changeVideo(randomId) ;}} >
-              {ind === 0 ? <img className="firstItem thumbnailsImage" key = {ind} src={ele.thumbnail}/> : 
+            <div className="imageContainer" onClick = {() => { this.props.changeVideo(randomId); }} >
+              {ind === 0 ? <img className="firstItem thumbnailsImage" key = {ind} src={ele.thumbnail}/> :
                 <img key = {ind} className="thumbnailsImage" src={ele.thumbnail}/>
               }
             </div>
@@ -23,7 +23,7 @@ export default class Video extends Component {
               <div className="videoAuthor">{ele.author}</div>
             </div>
           </div>;
-        })}        
+        })}
       </div>
     );
   }
