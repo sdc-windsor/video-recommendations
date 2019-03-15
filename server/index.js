@@ -1,7 +1,6 @@
 var express = require('express');
 var parser = require('body-parser');
 var cors = require('cors');
-var rp = require('request-promise');
 var app = express();
 var db = require('../database/index');
 

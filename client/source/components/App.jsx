@@ -24,6 +24,7 @@ export default class App extends Component {
   
 
   componentDidMount() {
+    
     let id = window.location.pathname;
     id === '/' ? id = 1 : id = Number(id.split('/')[1]);
     var urlCategory = 'http://huyservice.gsm3yc37rb.us-west-1.elasticbeanstalk.com';
@@ -52,13 +53,9 @@ export default class App extends Component {
                     console.log('these are the movies from database', thumbnailsFromDb);
 
                     var totalThumbnails = thumbnailsFromDb.data.concat(thumbnailsFromOther.data);
-
                     this.thumbnails = totalThumbnails;
-
                     var finalThumbnails = totalThumbnails.slice(0, this.initial + 10);
-
                     this.initial = this.initial + 10;
-
                     console.log('final thumbnails', finalThumbnails);
           
                     this.changeThumbnails(finalThumbnails);
