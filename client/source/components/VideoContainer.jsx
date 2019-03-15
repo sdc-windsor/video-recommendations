@@ -3,9 +3,10 @@ import Video from './Video.jsx';
 
 export default class VideoContainer extends Component {
   render() {
+    let {thumbnails, changeVideo} = this.props;
     return (
       <div id="videoContainer">
-        <Video />
+        <Video thumbnails = {thumbnails} changeVideo = {changeVideo} />
       </div>
     );
   }
