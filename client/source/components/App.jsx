@@ -40,7 +40,7 @@ export default class App extends Component {
   }
 
   changeVideo(id) {
-    // 
+    //
     // var urlCategory = 'http://huyservice.gsm3yc37rb.us-west-1.elasticbeanstalk.com';
     var urlCategory = 'http://localhost:3003';
     Axios.get(`${urlCategory}/categories/${id}`)
@@ -57,7 +57,7 @@ export default class App extends Component {
               return ele.video_id;
             });
             var params = ids.join('%2C');
-            const url = 'http://videoplayerservice-env.cdi5d5qypg.us-east-2.elasticbeanstalk.com';
+            const url = 'http://localhost:3001';
             Axios.get(`${url}/thumbnails/${params}`)
 
               .then((thumbnailsFromOther) => {
