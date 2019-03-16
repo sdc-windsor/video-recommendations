@@ -8,7 +8,7 @@ app.use(parser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(cors());
 
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 3002;
 
 app.listen(PORT, (err) => {
   if (err) {
@@ -27,7 +27,7 @@ app.get('/collections', (req, res) => {
 
 app.get('/featured/:category', (req, res) => {
   var category = req.params.category;
-  
+
   db.findMoviesByCategory(category)
     .then((result) => {
       console.log('got results from server', result);

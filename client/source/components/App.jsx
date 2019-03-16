@@ -40,14 +40,15 @@ export default class App extends Component {
   }
 
   changeVideo(id) {
-    //var urlCategory = 'http://huyservice.gsm3yc37rb.us-west-1.elasticbeanstalk.com';
-    var urlCategory = 'http://localhost:8081';
+    // 
+    // var urlCategory = 'http://huyservice.gsm3yc37rb.us-west-1.elasticbeanstalk.com';
+    var urlCategory = 'http://localhost:3003';
     Axios.get(`${urlCategory}/categories/${id}`)
 
       .then((data) => {
         var targetCategory = data.data.categories[0];
         //var urlVideoByCategory = 'http://huyservice.gsm3yc37rb.us-west-1.elasticbeanstalk.com';
-        var urlVideoByCategory = 'http://localhost:8081';
+        var urlVideoByCategory = 'http://localhost:3003';
         Axios.get(`${urlVideoByCategory}/videosByCategory/${targetCategory}`)
 
           .then((videosByCategory) => {
@@ -61,7 +62,7 @@ export default class App extends Component {
 
               .then((thumbnailsFromOther) => {
                 console.log('here are the thumbnails=============', thumbnailsFromOther);
-                let myUrl = 'http://sidebar-component-env.phjkgcp7vm.us-east-2.elasticbeanstalk.com';
+                let myUrl = 'http://localhost:3002';
                 Axios.get(`${myUrl}/featured/${targetCategory}`)
 
                   .then((thumbnailsFromDb) => {
