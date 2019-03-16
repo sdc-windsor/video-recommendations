@@ -14,6 +14,8 @@ module.exports = {
       "pit": true,
       "require": true,
       "xdescribe": true,
-      "xit": true
+      "xit": true,
+      "browser": true,
+      "node": true
     }
 };
