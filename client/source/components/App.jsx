@@ -40,7 +40,7 @@ export default class App extends Component {
   }
 
   changeVideo(id) {
-    // 
+    //
     // var urlCategory = 'http://huyservice.gsm3yc37rb.us-west-1.elasticbeanstalk.com';
     var urlCategory = 'http://localhost:3003';
     Axios.get(`${urlCategory}/categories/${id}`)

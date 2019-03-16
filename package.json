@@ -1,5 +1,5 @@
 {
-  "name": "felipe-service",
+  "name": "video-recommendation",
   "description": "> Project description",
   "author": "",
   "license": "ISC",
@@ -53,10 +53,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rpt11-spider-n-sleet/felipe-service.git"
+    "url": "git+https://github.com/sdc-windsor/video-recommendations.git"
   },
   "bugs": {
-    "url": "https://github.com/rpt11-spider-n-sleet/felipe-service/issues"
+    "url": "https://github.com/sdc-windsor/video-recommendations/issues"
   },
-  "homepage": "https://github.com/rpt11-spider-n-sleet/felipe-service#readme"
+  "homepage": "https://github.com/sdc-windsor/video-recommendations"
 }
