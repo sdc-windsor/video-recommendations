@@ -7,7 +7,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "start": "node ./server/index.js",
+    "start": "node ./server/server.js",
     "seed": "node ./database/seed.js",
     "test": "mocha",
     "react-dev": "webpack -d --watch",
@@ -19,10 +19,13 @@
     "chai": "^4.2.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
     "faker": "^4.1.0",
+    "graphql": "^14.1.1",
     "mocha": "^5.2.0",
     "mongodb": "^3.1.13",
     "mongoose": "^5.4.14",
+    "mysql": "^2.16.0",
     "nodemon": "^1.18.10",
     "parser": "^0.1.4",
     "react": "^16.8.3",
