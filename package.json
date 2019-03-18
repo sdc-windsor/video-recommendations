@@ -9,6 +9,8 @@
   "scripts": {
     "start": "node ./server/server.js",
     "seed": "node ./database/seed.js",
+    "seed-category": "node ./seeders/seedCategory.js",
+    "seed-tag": "node ./seeders/seedTag.js",
     "test": "mocha",
     "react-dev": "webpack -d --watch",
     "build": "webpack -p"

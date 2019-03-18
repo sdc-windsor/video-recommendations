@@ -16,7 +16,7 @@ CREATE TABLE category (
     'fashion',
     'travel',
     'journalism'
-  )
+  ) UNIQUE
 );
 
 CREATE TABLE tag (
