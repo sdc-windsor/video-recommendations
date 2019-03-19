@@ -12,41 +12,15 @@
 
 const Promise = require('bluebird');
 const db = require('../db-mysql/db.js');
-const { demoNames, demoText, demoCategories } = require('../sample/ipsum.js');
-
-const demoNamesMax = demoNames.length;
-const playMax = 10001;
-const imageMin = 1; // due to S3 file pathname
-const imageMax = 101;
-const demoTextMax = demoText.length;
-const titleMin = 15;
-const titleMax = 36;
-const categoryMin = 1; // due to sql table id starts at 1
-const categoryMax = demoCategories.length;
-
-const makeRandomIndex = (max, min = 0) => Math.floor(Math.random() * (max - min + 1) + min);
-
-const makeVideoDetails = () => {
-  const startIndex = makeRandomIndex(demoTextMax);
-  return [
-    // author
-    demoNames[makeRandomIndex(demoNamesMax)],
-    // plays
-    makeRandomIndex(playMax),
-    // thumbnailIndex
-    makeRandomIndex(imageMax, imageMin),
-    // title
-    demoText.slice(startIndex, startIndex + makeRandomIndex(titleMax, titleMin)).trim(),
-    // category_id
-    makeRandomIndex(categoryMax, categoryMin),
-  ];
-};
+const { makeVideoDetails } = require('./utils.js');
 
 // const totalCount = 10000000;
-const totalCount = 100000;
-const singleBatch = 5000;
+const totalCount = 10;
+const singleBatch = 5;
 const batchVideos = [];
 let batchCount = 0;
+let start;
+let end;
 
 const insertVideoAsync = videoDetail => new Promise((resolve, reject) => {
   const sql = 'INSERT INTO video (author, plays, thumbnailIndex, title, category_id) VALUES (?, ?, ?, ?, ?)';
@@ -60,9 +34,6 @@ const insertVideoAsync = videoDetail => new Promise((resolve, reject) => {
     }
   });
 });
-
-let start;
-let end;
 
 const insertBatchAsync = () => {
   if (batchCount === 0) {
