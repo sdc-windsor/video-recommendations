@@ -28,9 +28,8 @@ CREATE TABLE video (
   id INTEGER AUTO_INCREMENT PRIMARY KEY,
   author VARCHAR(80),
   plays INTEGER,
-  thumbnail VARCHAR(255),
-  title VARCHAR(80) UNIQUE,
-  url VARCHAR(255),
+  thumbnailIndex INTEGER,
+  title VARCHAR(80),
   category_id INTEGER REFERENCES category(id)
 );
 

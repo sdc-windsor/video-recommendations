@@ -11,12 +11,14 @@
     "seed": "node ./database/seed.js",
     "seed-category": "node ./seeders/seedCategory.js",
     "seed-tag": "node ./seeders/seedTag.js",
+    "seed-video": "node --max-old-space-size=4096 ./seeders/seedVideo.js",
     "test": "mocha",
     "react-dev": "webpack -d --watch",
     "build": "webpack -p"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "cors": "^2.8.5",
@@ -32,7 +34,8 @@
     "parser": "^0.1.4",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-switch": "^4.1.0"
+    "react-switch": "^4.1.0",
+    "underscore": "^1.9.1"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",

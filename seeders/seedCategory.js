@@ -1,18 +1,6 @@
 const db = require('../db-mysql/db.js');
 
-const category = [
-  'animation',
-  'comedy',
-  'music',
-  'education',
-  'art',
-  'design',
-  'documentary',
-  'food',
-  'fashion',
-  'travel',
-  'journalism',
-];
+const { demoCategories } = require('../sample/ipsum.js');
 
 const insertCategory = (connection, categoryName) => {
   const sql = 'INSERT INTO category (name) VALUES (?)';
@@ -26,7 +14,7 @@ const insertCategory = (connection, categoryName) => {
   });
 };
 
-category.forEach((name) => {
+demoCategories.forEach((name) => {
   insertCategory(db, name);
 });
 
