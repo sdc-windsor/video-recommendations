@@ -12,11 +12,12 @@
 
 const Promise = require('bluebird');
 const db = require('../db-mysql/db.js');
-const { makeVideoDetails } = require('./utils.js');
+const { makeVideoDetails } = require('../utils/genVideo.js');
 
-// const totalCount = 10000000;
+// const totalCount = 7500000;
+// const singleBatch = 2500;
 const totalCount = 10;
-const singleBatch = 5;
+const singleBatch = 2;
 const batchVideos = [];
 let batchCount = 0;
 let start;

@@ -1,19 +1,20 @@
 const { text, names, category } = require('./rawIpsum.js');
 
+const tagCount = 501;
+
 module.exports = {
-  demoTags: text.split(' ').slice(0, 501).map(word => word.replace(/[.,]/g, '').toLowerCase()),
+  demoTags: text.split(' ').slice(0, tagCount).map(word => word.replace(/[.,]/g, '').toLowerCase()),
   demoNames: names.split('\n')
     .map(name => name.replace(/"/g, '').split(','))
     .reduce((res, arr) => {
       arr.forEach((el) => {
-        res.push(el);
+        res.push(el.trim());
       });
       return res;
     }, []),
   demoText: text,
   demoCategories: category,
 };
-
 
 // ~10k text length for making titles
 // 4500 unique author names
