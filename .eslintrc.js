@@ -1,10 +1,21 @@
-/**
- * These rules enforce the Hack Reactor Style Guide
- *
- * Visit this repo for more information:
- *   https://github.com/reactorcore/eslint-config-hackreactor
- */
-
 module.exports = {
-  extends: './node_modules/eslint-config-hackreactor/index.js'
+  "extends": "airbnb",
+  globals: {
+      "jest": true,
+      "expect": true,
+      "mockFn": true,
+      "config": true,
+      "afterEach": true,
+      "beforeEach": true,
+      "describe": true,
+      "it": true,
+      "runs": true,
+      "waitsFor": true,
+      "pit": true,
+      "require": true,
+      "xdescribe": true,
+      "xit": true,
+      "browser": true,
+      "node": true
+    }
 };

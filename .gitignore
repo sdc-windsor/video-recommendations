@@ -23,6 +23,14 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
 
+# old server code
+server-archive/*
+
+# old database code
+database-archive/*
+
+# old tests
+test-archive/*
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
