@@ -51,10 +51,12 @@ export default class App extends Component {
         Axios.get(`${urlVideoByCategory}/videosByCategory/${targetCategory}`)
 
           .then((videosByCategory) => {
-            console.log('here are the videos', videosByCategory);
-            const ids = videosByCategory.data.map(ele => ele.video_id);
-            const params = ids.join('%2C');
-            const url = 'http://videoplayerservice-env.cdi5d5qypg.us-east-2.elasticbeanstalk.com';
+            console.log('here are the videos', videosByCategory );
+            var ids = videosByCategory.data.map((ele) => {
+              return ele.video_id;
+            });
+            var params = ids.join('%2C');
+            const url = 'http://localhost:3001';
             Axios.get(`${url}/thumbnails/${params}`)
 
               .then((thumbnailsFromOther) => {
