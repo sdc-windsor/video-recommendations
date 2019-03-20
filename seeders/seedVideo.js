@@ -11,23 +11,57 @@
 // category_id: 1,
 
 const Promise = require('bluebird');
-const db = require('../db-mysql/db.js');
 const { makeVideoDetails } = require('../utils/genVideo.js');
 
-// const totalCount = 7500000;
-// const singleBatch = 2500;
-const totalCount = 10;
-const singleBatch = 2;
-const batchVideos = [];
+const env = 'recommendations';
+const db = require('../db-mysql/db.js')(env);
+
+db.connect((err) => {
+  if (err) {
+    console.log(`connecting to database ${env} error: ${err}`);
+  } else {
+    console.log(`connected to database ${env}`);
+  }
+});
+
+const totalCount = 10000000;
+const queriesPerSingleBatch = 2000;
+const singleBatch = [];
+const rowsPerQuery = 500;
 let batchCount = 0;
 let start;
 let end;
 
-const insertVideoAsync = videoDetail => new Promise((resolve, reject) => {
-  const sql = 'INSERT INTO video (author, plays, thumbnailIndex, title, category_id) VALUES (?, ?, ?, ?, ?)';
-  const sqlArgs = videoDetail;
+const makeQueryArgs = () => {
+  const array = [];
+  for (let i = 0; i < rowsPerQuery; i += 1) {
+    makeVideoDetails().forEach((detail) => {
+      array.push(detail);
+    });
+  }
+  return array;
+};
+
+const makeQueryString = (rowCounts) => {
+  let string = 'INSERT INTO video (author, plays, thumbnailIndex, title, category_id) VALUES ';
+  const rowString = '(?, ?, ?, ?, ?),';
+  const rowStringEnd = '(?, ?, ?, ?, ?)';
+  for (let i = 0; i < rowCounts; i += 1) {
+    if (i === rowsPerQuery - 1) {
+      string += rowStringEnd;
+    } else {
+      string += rowString;
+    }
+  }
+  return string;
+};
+
+const insertVideoAsync = (rows, queryArgs) => new Promise((resolve, reject) => {
+  const sql = makeQueryString(rows);
+  const sqlArgs = queryArgs;
   db.query(sql, sqlArgs, (err) => {
     if (err) {
+      console.log(sqlArgs);
       console.log(`insert into video table error: ${err}`);
       reject(err);
     } else {
@@ -41,23 +75,23 @@ const insertBatchAsync = () => {
     start = new Date();
   }
 
-  for (let i = 0; i < singleBatch; i += 1) {
-    batchVideos.push(makeVideoDetails());
+  for (let i = 0; i < queriesPerSingleBatch; i += 1) {
+    singleBatch.push(makeQueryArgs());
   }
-  return Promise.all(batchVideos.map(videoDetail => insertVideoAsync(videoDetail)))
+  return Promise.all(singleBatch.map(queryArgs => insertVideoAsync(rowsPerQuery, queryArgs)))
     .then(() => {
-      while (batchVideos.length > 0) {
-        batchVideos.pop();
+      while (singleBatch.length > 0) {
+        singleBatch.pop();
       }
     })
     .then(() => {
       batchCount += 1;
-      console.log(`seeded ${batchCount * singleBatch / 1000}k entries`);
+      console.log(`seeded ${batchCount} million entries`);
     })
     .then(() => {
-      if (batchCount === totalCount / singleBatch) {
+      if (batchCount === totalCount / queriesPerSingleBatch / rowsPerQuery) {
         end = new Date();
-        console.log(`total seeding process took ${((end - start) / 1000 / 60).toFixed(1)} minutes`);
+        console.log(`total seeding process took ${((end - start) / 1000).toFixed(1)} seconds`);
         process.exit();
       } else {
         insertBatchAsync();

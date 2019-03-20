@@ -17,7 +17,7 @@ const makeVideoDetails = () => {
   const startIndex = makeRandomIndex(demoTextMax);
   return [
     // author
-    demoNames[makeRandomIndex(demoNamesMax)] + demoNames[makeRandomIndex(demoNamesMax)],
+    demoNames[makeRandomIndex(demoNamesMax)],
     // plays
     makeRandomIndex(playMax),
     // thumbnailIndex

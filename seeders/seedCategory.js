@@ -1,6 +1,15 @@
-const db = require('../db-mysql/db.js');
-
 const { demoCategories } = require('../sample/ipsum.js');
+
+const env = 'recommendations';
+const db = require('../db-mysql/db.js')(env);
+
+db.connect((err) => {
+  if (err) {
+    console.log(`connecting to database ${env} error: ${err}`);
+  } else {
+    console.log(`connected to database ${env}`);
+  }
+});
 
 const insertCategory = (connection, categoryName) => {
   const sql = 'INSERT INTO category (name) VALUES (?)';
