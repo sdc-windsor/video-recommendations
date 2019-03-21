@@ -7,4 +7,29 @@ const makeConnection = env => mysql.createConnection({
   database: env,
 });
 
-module.exports = makeConnection;
+const devEnv = 'recommendations';
+const testEnv = 'test';
+
+const devDB = makeConnection(devEnv);
+const testDB = makeConnection(testEnv);
+
+devDB.connect((err) => {
+  if (err) {
+    console.log(`connecting to database devDB error: ${err}`);
+  } else {
+    console.log('connected to database devDB');
+  }
+});
+
+testDB.connect((err) => {
+  if (err) {
+    console.log(`connecting to database testDB error: ${err}`);
+  } else {
+    console.log('connected to database testDB');
+  }
+});
+
+module.exports = {
+  devDB,
+  testDB,
+};

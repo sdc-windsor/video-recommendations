@@ -54,7 +54,7 @@ export default class App extends Component {
             console.log('here are the videos', videosByCategory);
             const ids = videosByCategory.data.map(ele => ele.video_id);
             const params = ids.join('%2C');
-            const url = 'http://videoplayerservice-env.cdi5d5qypg.us-east-2.elasticbeanstalk.com';
+            const url = 'http://localhost:3001';
             Axios.get(`${url}/thumbnails/${params}`)
 
               .then((thumbnailsFromOther) => {
