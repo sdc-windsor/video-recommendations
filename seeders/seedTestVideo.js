@@ -1,24 +1,24 @@
+// author VARCHAR(80),
+// plays INTEGER,
+// thumbnail VARCHAR(255),
+// title VARCHAR(80) UNIQUE,
+// category_id INTEGER REFERENCES category(id)
+
 // author: 'Mr. Amani Senger',
 // plays: 63438,
 // thumbnail: 'https://s3-us-west-1.amazonaws.com/elasticbeanstalk-us-west-1-730513610105/images/10.jpg',
 // title: 'autem quod est',
 // category_id: 1,
 
-// +---------+--------+-------+----------------+------------------------+-------------+
-// | id      | author | plays | thumbnailIndex | title                  | category_id |
-// +---------+--------+-------+----------------+------------------------+-------------+
-// | 3726979 | Munoz  |  3373 |  11            | austin banh mi cred m  |  3          |
-// +---------+--------+-------+----------------+------------------------+-------------+
-
 const Promise = require('bluebird');
 const { makeVideoDetails } = require('../utils/genVideo.js');
 
-const db = require('../db-mysql/db.js').devDB;
+const db = require('../db-mysql/db.js').testDB;
 
-const totalCount = 10000000;
-const queriesPerSingleBatch = 2000;
+const totalCount = 400;
+const queriesPerSingleBatch = 2;
 const singleBatch = [];
-const rowsPerQuery = 500;
+const rowsPerQuery = 10;
 let batchCount = 0;
 let start;
 let end;
@@ -33,12 +33,12 @@ const makeQueryArgs = () => {
   return array;
 };
 
-const makeQueryString = (queryArgsLength) => {
+const makeQueryString = (rowCounts) => {
   let string = 'INSERT INTO video (author, plays, thumbnailIndex, title, category_id) VALUES ';
   const rowString = '(?, ?, ?, ?, ?),';
   const rowStringEnd = '(?, ?, ?, ?, ?)';
-  for (let i = 0; i < queryArgsLength / 5; i += 1) {
-    if (i === (queryArgsLength / 5) - 1) {
+  for (let i = 0; i < rowCounts; i += 1) {
+    if (i === rowsPerQuery - 1) {
       string += rowStringEnd;
     } else {
       string += rowString;
@@ -47,8 +47,8 @@ const makeQueryString = (queryArgsLength) => {
   return string;
 };
 
-const insertVideoAsync = queryArgs => new Promise((resolve, reject) => {
-  const sql = makeQueryString(queryArgs.length);
+const insertVideoAsync = (rows, queryArgs) => new Promise((resolve, reject) => {
+  const sql = makeQueryString(rows);
   const sqlArgs = queryArgs;
   db.query(sql, sqlArgs, (err) => {
     if (err) {
@@ -69,7 +69,7 @@ const insertBatchAsync = () => {
   for (let i = 0; i < queriesPerSingleBatch; i += 1) {
     singleBatch.push(makeQueryArgs());
   }
-  return Promise.all(singleBatch.map(queryArgs => insertVideoAsync(queryArgs)))
+  return Promise.all(singleBatch.map(queryArgs => insertVideoAsync(rowsPerQuery, queryArgs)))
     .then(() => {
       while (singleBatch.length > 0) {
         singleBatch.pop();

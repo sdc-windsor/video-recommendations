@@ -3,7 +3,14 @@ const { text, names, category } = require('./rawIpsum.js');
 const tagCount = 501;
 
 module.exports = {
-  demoTags: text.split(' ').slice(0, tagCount).map(word => word.replace(/[.,]/g, '').toLowerCase()),
+  demoTags: text.split(' ').slice(0, tagCount)
+    .map(word => word.replace(/[.,]/g, '').toLowerCase())
+    .reduce((res, word) => {
+      if (res.indexOf(word) === -1) {
+        res.push(word);
+      }
+      return res;
+    }, []),
   demoNames: names.split('\n')
     .map(name => name.replace(/"/g, '').split(','))
     .reduce((res, arr) => {

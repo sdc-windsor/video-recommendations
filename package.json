@@ -12,7 +12,8 @@
     "seed-category": "node ./seeders/seedCategory.js",
     "seed-tag": "node ./seeders/seedTag.js",
     "seed-video": "node --max-old-space-size=4096 ./seeders/seedVideo.js",
-    "seed-video-test": "node --max-old-space-size=4096 ./seeders/seedVideoTest.js",
+    "seed-video-test": "node --max-old-space-size=4096 ./seeders/seedTestVideo.js",
+    "seed-videoTag": "node --max-old-space-size=4096 ./seeders/seedVideoTag.js",
     "test": "mocha",
     "react-dev": "webpack -d --watch",
     "build": "webpack -p"
