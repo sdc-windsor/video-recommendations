@@ -8,15 +8,19 @@
   },
   "scripts": {
     "start": "node ./server/server.js",
-    "seed": "node ./database/seed.js",
-    "seed-category": "node ./seeders/seedCategory.js",
-    "seed-tag": "node ./seeders/seedTag.js",
-    "seed-video": "node --max-old-space-size=4096 ./seeders/seedVideo.js",
-    "seed-video-test": "node --max-old-space-size=4096 ./seeders/seedTestVideo.js",
-    "seed-videoTag": "node --max-old-space-size=4096 ./seeders/seedVideoTag.js",
     "test": "mocha",
     "react-dev": "webpack -d --watch",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "seed-legacy": "node ./database-archive/seed.js",
+    "mysql-seed-category": "node ./mysql-seeders/seedCategory.js",
+    "mysql-seed-tag": "node ./mysql-seeders/seedTag.js",
+    "mysql-seed-video": "node --max-old-space-size=4096 ./mysql-seeders/seedVideo.js",
+    "mysql-seed-video-test": "node --max-old-space-size=4096 ./mysql-seeders/seedTestVideo.js",
+    "mysql-seed-videoTag": "node --max-old-space-size=4096 ./mysql-seeders/seedVideoTag.js",
+    "neo4j-seed-category": "node ./neo4j-seeders/seedCategory.js",
+    "neo4j-seed-tag": "node ./neo4j-seeders/seedTag.js",
+    "neo4j-seed-video": "node --max-old-space-size=4096 ./neo4j-seeders/seedVideo.js",
+    "neo4j-seed-video-test": "node --max-old-space-size=4096 ./neo4j-seeders/seedTestVideo.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
