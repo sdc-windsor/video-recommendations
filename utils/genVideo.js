@@ -13,7 +13,7 @@ const imageMax = 101;
 const categoryMin = 1; // due to sql table id starts at 1
 const categoryMax = demoCategories.length;
 
-const makeVideoDetails = () => {
+const makeSQLVideoDetails = () => {
   const startIndex = makeRandomIndex(demoTextMax);
   return [
     // author
@@ -29,6 +29,12 @@ const makeVideoDetails = () => {
   ];
 };
 
+const makeNeo4jVideoDetails = () => {
+  const startIndex = makeRandomIndex(demoTextMax);
+  return `{author:"${demoNames[makeRandomIndex(demoNamesMax)]}",plays:"${makeRandomIndex(playMax)}",thumbnailIndex:"${makeRandomIndex(imageMax, imageMin)}",title:"${demoText.slice(startIndex, startIndex + makeRandomIndex(titleMax, titleMin)).trim()}"}`;
+};
+
 module.exports = {
-  makeVideoDetails,
+  makeSQLVideoDetails,
+  makeNeo4jVideoDetails,
 };
