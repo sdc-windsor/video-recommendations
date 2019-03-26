@@ -20,8 +20,8 @@
     "neo4j-seed-category": "node ./neo4j-seeders/seedCategory.js",
     "neo4j-seed-tag": "node ./neo4j-seeders/seedTag.js",
     "neo4j-seed-videoHTTP": "node --max-old-space-size=4096 ./neo4j-seeders/seedVideoHTTP.js",
-    "neo4j-seed-videoDriver": "node --max-old-space-size=4096 ./neo4j-seeders/seedVideoDriver.js",
-    "neo4j-seed-videoHasTag": "node --max-old-space-size=4096 ./neo4j-seeders/seedVideoHasTag.js"
+    "neo4j-seed-videoDriver": "node ./neo4j-seeders/seedVideoDriver.js",
+    "neo4j-seed-videoHasTag": "node ./neo4j-seeders/seedVideoHasTag.js"
   },
   "dependencies": {
     "axios": "^0.18.0",

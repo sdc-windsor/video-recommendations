@@ -68,6 +68,7 @@ const makeVideoHasTagString = (id, word) => `MATCH (v:Video), (t:Tag) where id(v
 // MATCH (v:Video), (a:Tag), (b:Tag)
 // where id(v) = 1000 and a.word = 'stumptown' and b.word='letterpress'
 // create (v)-[:HAS_TAG]->(a), (v)-[:HAS_TAG]->(b)
+
 const makeVideoHasMultiTagString = (id) => {
   const tags = [demoTags[makeRandomIndex(demoTags.length)], demoTags[makeRandomIndex(demoTags.length)], demoTags[makeRandomIndex(demoTags.length)]];
   return `MATCH (v:Video), (a:Tag), (b:Tag), (c:Tag) WHERE id(v) = ${id} and a.word = '${tags[0]}' and b.word = '${tags[1]}' and c.word = '${tags[2]}' create (v)-[:HAS_TAG]->(a), (v)-[:HAS_TAG]->(b), (v)-[:HAS_TAG]->(c)`;

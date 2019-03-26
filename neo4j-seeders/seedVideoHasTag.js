@@ -7,9 +7,9 @@ const { makeVideoHasTagString } = require('../utils/genNeo4jQuery');
 // MATCH (v:Video), (t:Tag) where id(v) = 1000 and t.word = 'stumptown' create (v)-[:HAS_TAG]->(t)
 
 // Video node id starts at 255
-let videoIdStart = 63859;
+let videoIdStart = 255;
 const videoIdEnd = 10000604;
-const videosPerBatch = 20000;
+const videosPerBatch = 10000;
 const tagMax = 5;
 const tagMin = 1;
 
@@ -33,6 +33,7 @@ const VideoHasTagAsync = () => {
     })
     .then(() => {
       videoIdStart += videosPerBatch;
+      console.log(`total ${new Date() - sessionStart} milliseconds`);
       console.log(videoIdStart);
     })
     .then(() => {
@@ -46,3 +47,45 @@ const VideoHasTagAsync = () => {
 };
 
 VideoHasTagAsync();
+
+// test on using UNWIND
+
+// params = {tags: ['avocado', 'stumptown', ...], videos: [10001, 10002, ...]}
+// const unwindParams = () => {
+//   const tagCount = makeRandomIndex(tagMax, tagMin);
+//   const params = { tags: [] };
+//   for (let j = 0; j < tagCount; j += 1) {
+//     params.tags.push(demoTags[makeRandomIndex(demoTags.length)]);
+//   }
+//   return params;
+// };
+
+// const params = unwindParams();
+// console.log(params);
+
+// for (let i = videoIdStart; i < videoIdStart + videosPerBatch; i += 1) {
+//   if (i === 0) {
+//     singleBatch.push(`UNWIND $tags as tagW MATCH (v:Video), (t:Tag) WHERE id(v) = ${i} AND t.word = tagW create (v)-[:HAS_TAG]->(t) return t`);
+//   } else {
+//     singleBatch.push(`UNWIND $tags as tagW MATCH (v:Video), (t:Tag) WHERE id(v) = ${i} AND t.word = tagW create (v)-[:HAS_TAG]->(t)`);
+//   }
+// }
+
+// const VideoHasTagAsync = () => {
+//   console.log(singleBatch);
+//   Promise.all(singleBatch.map(singleQuery => session.run(singleQuery, params)))
+//     .then(() => {
+//       console.log(`seeding process took ${new Date() - sessionStart}`);
+//       process.exit();
+//     })
+//     .catch((err) => {
+//       console.log(JSON.stringify(err));
+//     });
+// };
+
+// VideoHasTagAsync();
+
+
+// session.run('UNWIND $pairs as pair MATCH (v:Video), (t:Tag) WHERE id(v) = pair.videoId and t.word = pair.tagW create (v)-[:HAS_TAG]->(t)', params)
+//   .then(res => console.log(JSON.stringify(res)))
+//   .catch(err => console.log(JSON.stringify(err)));
