@@ -1,3 +1,5 @@
+// Using Neo4j Driver
+
 // this script CREATEs
 // 1) Video node
 // 2) Video BELONGS_TO Category relationship

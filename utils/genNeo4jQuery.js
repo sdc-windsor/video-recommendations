@@ -1,5 +1,5 @@
 const makeRandomIndex = require('./genRandomIndex.js');
-const { demoCategories } = require('../sample/ipsum.js');
+const { demoCategories, demoTags } = require('../sample/ipsum.js');
 //  [{ statement: query, parameters: params }]
 const makeConstraintArray = (nodeVar, nodeLabel, nodeProp) => [{
   statement: `CREATE CONSTRAINT ON (${nodeVar}:${nodeLabel}) ASSERT ${nodeVar}.${nodeProp} IS UNIQUE`,
@@ -60,6 +60,19 @@ const makeCreateMultiString = (dataArray, nodeLabel) => {
   return queryString;
 };
 
+// use as Neo4j Driver query
+// create Video HAS_TAG relationship
+// x number of HAS_TAG relationships per video
+// MATCH (v:Video), (t:Tag) where id(v) = 1000 and t.word = 'stumptown' create (v)-[:HAS_TAG]->(t)
+const makeVideoHasTagString = (id, word) => `MATCH (v:Video), (t:Tag) where id(v) = ${id} and t.word = '${word}' create (v)-[:HAS_TAG]->(t)`;
+// MATCH (v:Video), (a:Tag), (b:Tag)
+// where id(v) = 1000 and a.word = 'stumptown' and b.word='letterpress'
+// create (v)-[:HAS_TAG]->(a), (v)-[:HAS_TAG]->(b)
+const makeVideoHasMultiTagString = (id) => {
+  const tags = [demoTags[makeRandomIndex(demoTags.length)], demoTags[makeRandomIndex(demoTags.length)], demoTags[makeRandomIndex(demoTags.length)]];
+  return `MATCH (v:Video), (a:Tag), (b:Tag), (c:Tag) WHERE id(v) = ${id} and a.word = '${tags[0]}' and b.word = '${tags[1]}' and c.word = '${tags[2]}' create (v)-[:HAS_TAG]->(a), (v)-[:HAS_TAG]->(b), (v)-[:HAS_TAG]->(c)`;
+};
+
 // data => data.results[0].data.map(result => result.row[0]);
 const mapResponse = apiData => apiData.results[0].data.map(result => result.row[0]);
 // sample returned data shape: https://neo4j.com/docs/http-api/current/http-api-actions/execute-multiple-statements/
@@ -81,6 +94,8 @@ module.exports = {
   makeCreateSingleArray,
   makeCreateMultiQuery,
   makeCreateMultiString,
+  makeVideoHasTagString,
+  makeVideoHasMultiTagString,
   mapResponse,
   makeCb,
 };
