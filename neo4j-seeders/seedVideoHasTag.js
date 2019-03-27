@@ -7,9 +7,9 @@ const { makeVideoHasTagString } = require('../utils/genNeo4jQuery');
 // MATCH (v:Video), (t:Tag) where id(v) = 1000 and t.word = 'stumptown' create (v)-[:HAS_TAG]->(t)
 
 // Video node id starts at 255
-let videoIdStart = 255;
+let videoIdStart = 266000;
 const videoIdEnd = 10000604;
-const videosPerBatch = 10000;
+const videosPerBatch = 1000;
 const tagMax = 5;
 const tagMin = 1;
 
