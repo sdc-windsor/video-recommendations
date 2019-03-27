@@ -43,7 +43,7 @@ const makeCreateMultiQuery = (dataArray, nodeLabel) => {
 // create Video BELONGS_TO Category relationship
 const makeCreateMultiString = (dataArray, nodeLabel) => {
   const randomCategory = demoCategories[makeRandomIndex(demoCategories.length)];
-  let queryString = `match (c:Category{name:'${randomCategory}'}) CREATE `;
+  let queryString = `MATCH (c:Category{name:'${randomCategory}'}) CREATE `;
   for (let i = 0; i < dataArray.length; i += 1) {
     // dataArray = [{author:'test', plays: 2}, {author:'test2', plays: 3}]
     // create node:
