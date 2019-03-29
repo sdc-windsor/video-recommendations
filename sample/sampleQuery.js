@@ -34,7 +34,7 @@ const videoCount = 10;
 // without order by plays: 30ms
 // if order by plays: 19 sec
 
-const db = require('../db-mysql/db.js').devDB;
+const db = require('../db-mysql/connection.js').devDB;
 
 const sqlArgs = [];
 

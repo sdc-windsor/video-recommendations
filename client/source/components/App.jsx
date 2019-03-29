@@ -19,9 +19,14 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    let id = window.location.pathname;
-    id === '/' ? id = 10000 : id = Number(id.split('/')[1]);
-    this.changeVideo(id);
+    const path = window.location.pathname.split('/')[1];
+    let id;
+    path === '' ? id = 10000 : id = path;
+    this.props.getVideos(id, (res) => {
+      this.setState({
+        thumbnails: res,
+      });
+    });
   }
 
   changeThumbnails(inputThumbnails) {
@@ -39,17 +44,11 @@ export default class App extends Component {
   }
 
   changeVideo(id) {
-    // var urlCategory = 'http://huyservice.gsm3yc37rb.us-west-1.elasticbeanstalk.com';
-    const localUrl = 'http://localhost:3003';
-    Axios.get(`${localUrl}/${id}`)
-      .then((thumbnails) => {
-        console.log(thumbnails);
-        this.changeThumbnails(thumbnails);
-      })
-      .catch((err) => {
-        // need to add 10 default thumbnail objects for error getting data
-        console.log(`Error getting 10 more videos: ${err}`);
+    this.props.getVideos(id, (res) => {
+      this.setState({
+        thumbnails: res,
       });
+    });
   }
 
   render() {
