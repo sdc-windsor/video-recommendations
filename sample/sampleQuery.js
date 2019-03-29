@@ -23,13 +23,6 @@ const videoId = 10000;
 const videoCount = 10;
 
 // ///////////////////// MYSQL //////////////////////////
-// SELECT tag_id FROM video_tag WHERE video_id = 10000 LIMIT 1
-// 10ms
-
-// SELECT author, thumbnailIndex, title FROM video
-// WHERE category_id = (SELECT category_id from video WHERE id = 10000) LIMIT 10
-// 10ms
-
 // SELECT video.id, video.author, video.thumbnailIndex, video.plays, video.title, video_tag.tag_id
 // FROM video
 // INNER JOIN video_tag ON video.id = video_tag.video_id
@@ -55,6 +48,7 @@ db.query(sqlString, sqlArgs, (err, res) => {
   } else {
     console.log(`MySQL query took ${new Date() - sqlt1} ms`);
     console.log(JSON.stringify(res));
+    process.exit();
   }
 });
 
@@ -68,12 +62,12 @@ db.query(sqlStringSimple, sqlArgs, (err, res) => {
   } else {
     console.log(`MySQL query took ${new Date() - sqlt2} ms`);
     console.log(JSON.stringify(res));
-    db.end();
+    process.exit();
   }
 });
 
-// ///////////////////// MYSQL TASK 2 //////////////////////////
-const sqlStringOrderBy = `SELECT video.id, video.author, video.thumbnailIndex, video.plays, video.title, video_tag.tag_id FROM video INNER JOIN video_tag ON video.id = video_tag.video_id WHERE video.category_id = (SELECT category_id from video WHERE id = ${videoId}) AND video_tag.tag_id = (SELECT tag_id FROM video_tag WHERE video_id = ${videoId} LIMIT 1) LIMIT ${videoCount}`;
+// // ///////////////////// MYSQL TASK 3 //////////////////////////
+const sqlStringOrderBy = `SELECT video.id, video.author, video.thumbnailIndex, video.plays, video.title, video_tag.tag_id FROM video INNER JOIN video_tag ON video.id = video_tag.video_id WHERE video.category_id = (SELECT category_id from video WHERE id = ${videoId}) AND video_tag.tag_id = (SELECT tag_id FROM video_tag WHERE video_id = ${videoId} LIMIT 1) AND video.id < 1000000 ORDER BY video.plays DESC LIMIT ${videoCount}`;
 const sqlt3 = new Date();
 
 db.query(sqlStringOrderBy, sqlArgs, (err, res) => {
@@ -82,21 +76,16 @@ db.query(sqlStringOrderBy, sqlArgs, (err, res) => {
   } else {
     console.log(`MySQL query took ${new Date() - sqlt3} ms`);
     console.log(JSON.stringify(res));
-    db.end();
+    process.exit();
   }
 });
 
 
-// ///////////////////// Neo4j //////////////////////////
+// // ///////////////////// Neo4j //////////////////////////
 
-// ///////////////////// Neo4j TASK 1//////////////////////////
-// MATCH (c:Category)<-[:BELONGS_TO]-(v:Video) WHERE id(v) = ${videoId} return c
-// MATCH (t:Tag)<-[:HAS_TAG]-(v:Video) WHERE id(v) = ${videoId} return t LIMIT 1
-// MATCH (t:Tag {word:\'bespoke\'})<-[HAS_TAG]-(r:Video)-[BELONGS_TO]->(c:Category {name:\'fashion\'}) return r LIMIT ${videoCount}
-
-// //////// USING HTTP
+// // //////// USING HTTP
 const { cypherMulti } = require('../db-neo4j/db.js');
-
+// // ///////////////////// Neo4j TASK 1//////////////////////////
 const neo4jQuery = `MATCH (v:Video)-[:HAS_TAG]->(t:Tag)<-[:HAS_TAG]-(r:Video)-[:BELONGS_TO]->(c:Category)<-[:BELONGS_TO]-(v:Video) WHERE id(v) = ${videoId} RETURN r LIMIT ${videoCount}`;
 const statementsArray = [{ statement: neo4jQuery, parameters: null }];
 const neot1 = new Date();
@@ -107,10 +96,11 @@ cypherMulti(statementsArray, (err, res) => {
   } else {
     console.log(`Neo4j query took ${new Date() - neot1} ms`);
     console.log(JSON.stringify(res));
+    process.exit();
   }
 });
 
-// ///////////////////// Neo4j TASK 2//////////////////////////
+// // ///////////////////// Neo4j TASK 2//////////////////////////
 const neo4jQuerySimple = `MATCH (r:Video)-[:BELONGS_TO]->(c:Category)<-[:BELONGS_TO]-(v:Video) WHERE id(v) = ${videoId} RETURN r LIMIT ${videoCount}`;
 const statementsArraySimple = [{ statement: neo4jQuerySimple, parameters: null }];
 const neot2 = new Date();
@@ -121,11 +111,12 @@ cypherMulti(statementsArraySimple, (err, res) => {
   } else {
     console.log(`Neo4j query took ${new Date() - neot2} ms`);
     console.log(JSON.stringify(res));
+    process.exit();
   }
 });
 
-// ///////////////////// Neo4j TASK 3//////////////////////////
-const neo4jQueryOrderBy = `MATCH (r:Video)-[:BELONGS_TO]->(c:Category)<-[:BELONGS_TO]-(v:Video) WHERE id(v) = ${videoId} RETURN r ORDER BY r.plays DESC LIMIT ${videoCount}`;
+// // ///////////////////// Neo4j TASK 3//////////////////////////
+const neo4jQueryOrderBy = `MATCH (r:Video)-[:BELONGS_TO]->(c:Category)<-[:BELONGS_TO]-(v:Video) WHERE id(v) = ${videoId} AND id(r) < 1000000 RETURN r ORDER BY r.plays DESC LIMIT ${videoCount}`;
 const statementsArrayOrderBy = [{ statement: neo4jQueryOrderBy, parameters: null }];
 const neot3 = new Date();
 
@@ -135,6 +126,7 @@ cypherMulti(statementsArrayOrderBy, (err, res) => {
   } else {
     console.log(`Neo4j query took ${new Date() - neot3} ms`);
     console.log(JSON.stringify(res));
+    process.exit();
   }
 });
 
