@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path');
 const parser = require('body-parser');
-const { getRecVideos } = require('../db-mysql/db.js');
+// const { getRecVideos } = require('../db-mysql/db.js');
+const { getRecVideos } = require('../db-neo4j/db.js');
 
 const app = express();
 
@@ -14,13 +15,25 @@ app.use((req, res, next) => {
   next();
 });
 
+const localImagePath = '../../sample/images';
+const s3ImagePath = 'https://s3-us-west-1.amazonaws.com/elasticbeanstalk-us-west-1-730513610105/images';
+
 app.get('/recommendations/:id', (req, res) => {
   const videoId = req.params.id;
-  console.log(videoId);
 
   getRecVideos(videoId, (resultVideos) => {
+    resultVideos.forEach((video) => {
+      video.thumbnail = `${s3ImagePath}/${video.thumbnailIndex}.jpg`;
+    });
     res.send(resultVideos);
   });
 });
+
+// app.post('/recommendations', (req, res) => {
+
+// });
+
+// app.put
+// app.delete
 
 module.exports = app;

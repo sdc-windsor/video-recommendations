@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
 import Switch from './Switch.jsx';
 import VideoContainer from './VideoContainer.jsx';
 import Button from './Button.jsx';

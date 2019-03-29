@@ -10,10 +10,12 @@ const getVideos = (id, callback) => {
       callback(data);
     })
     .fail(() => {
-      console.log('fail to get /recommendations/videoId');
+      console.log('fail to get /recommendations/:id');
       // send back default data
       // callback(defaultVideos)
     });
 };
 
-module.exports = getVideos;
+module.exports = {
+  getVideos,
+};
