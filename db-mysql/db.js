@@ -18,7 +18,7 @@ const getRecVideos = (videoId, callback) => {
   });
 };
 
-const getRecVideosAsync = (videoId) => {
+const getRecVideosAsync = (videoId, imagePath) => {
   const videoCount = 10;
   const sqlString = `SELECT video.id, video.author, video.thumbnailIndex, video.plays, video.title, video_tag.tag_id FROM video INNER JOIN video_tag ON video.id = video_tag.video_id WHERE video.category_id = (SELECT category_id from video WHERE id = ${videoId}) AND video_tag.tag_id = (SELECT tag_id FROM video_tag WHERE video_id = ${videoId} LIMIT 1) LIMIT ${videoCount}`;
   const sqlArgs = [];
@@ -28,6 +28,8 @@ const getRecVideosAsync = (videoId) => {
       if (err) {
         reject(err);
       } else {
+        res.forEach((video) => { video.thumbnail = `${imagePath}/${video.thumbnailIndex}.jpg` });
+        console.log(res);
         resolve(res);
       }
     });
