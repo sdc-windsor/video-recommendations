@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "nodemon ./server/express-server.js",
+    "apollo": "nodemon ./server/apollo-server.js",
     "test": "mocha",
     "react-dev": "webpack -d --watch",
     "build": "webpack -p",

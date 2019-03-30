@@ -1,5 +1,5 @@
 const { gql } = require('apollo-server');
-const { getRecVideos } = require('../db-mysql/db.js');
+const { getRecVideosAsync } = require('../db-mysql/db.js');
 
 const typeDefs = gql`
   type Video {
@@ -9,14 +9,14 @@ const typeDefs = gql`
   }
 
   type Query {
-    recommendations(videoId: Int): [Video]
+    getRecommendations(videoId: Int): [Video]
   }
 `;
 
 const resolvers = {
   Query: {
-    recommendations(videoId) {
-      return getRecVideos(videoId, res => res);
+    getRecommendations(parent, args, context, info) {
+      return getRecVideosAsync(args.videoId);
     },
   },
 };
