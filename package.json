@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "nodemon ./server/express-server.js",
-    "apollo": "nodemon ./server/apollo-server.js",
+    "apollo": "nodemon ./server/apollo-express-server.js",
     "test": "mocha",
     "react-dev": "webpack -d --watch",
     "build": "webpack -p",
@@ -25,7 +25,7 @@
     "neo4j-seed-videoHasTag": "node ./neo4j-seeders/seedVideoHasTag.js"
   },
   "dependencies": {
-    "apollo-server": "^2.4.8",
+    "apollo-server-express": "^2.4.8",
     "axios": "^0.18.0",
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",

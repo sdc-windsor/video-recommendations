@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server');
+const { gql } = require('apollo-server-express');
 const { getRecVideosAsync } = require('../db-mysql/db.js');
 
 const typeDefs = gql`
