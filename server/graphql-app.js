@@ -1,16 +1,28 @@
-const { buildSchema } = require('graphql');
+const { gql } = require('apollo-server');
+const { getRecVideos } = require('../db-mysql/db.js');
 
-module.exports = {
-  schema: buildSchema(`
-  type Query {
-    quoteOfTheDay: String
-    random: Float!
-    rollThreeDice: [Int]
+const typeDefs = gql`
+  type Video {
+    title: String
+    author: String
+    thumbnailIndex: Int
   }
-`),
-  root: {
-    quoteOfTheDay: () => (Math.random() < 0.5 ? 'Take it easy' : 'Salvation lies within'),
-    random: () => Math.random(),
-    rollThreeDice: () => [1, 2, 3].map(_ => 1 + Math.floor(Math.random() * 6)),
+
+  type Query {
+    recommendations(videoId: Int): [Video]
+  }
+`;
+
+const resolvers = {
+  Query: {
+    recommendations(videoId) {
+      return getRecVideos(videoId, res => res);
+    },
   },
 };
+
+module.exports = {
+  typeDefs,
+  resolvers,
+};
+

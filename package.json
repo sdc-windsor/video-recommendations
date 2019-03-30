@@ -7,7 +7,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "start": "nodemon ./server/server.js",
+    "start": "nodemon ./server/express-server.js",
     "test": "mocha",
     "react-dev": "webpack -d --watch",
     "build": "webpack -p",
@@ -24,13 +24,13 @@
     "neo4j-seed-videoHasTag": "node ./neo4j-seeders/seedVideoHasTag.js"
   },
   "dependencies": {
+    "apollo-server": "^2.4.8",
     "axios": "^0.18.0",
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "express-graphql": "^0.7.1",
     "faker": "^4.1.0",
     "graphql": "^14.1.1",
     "jquery": "^3.3.1",
