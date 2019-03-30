@@ -7,6 +7,7 @@ const getVideos = (id, callback) => {
     contentType: 'application/json',
   })
     .done((data) => {
+      console.log(data);
       callback(data);
     })
     .fail(() => {
@@ -16,6 +17,34 @@ const getVideos = (id, callback) => {
     });
 };
 
+const getVideosGQL = (id, callback) => {
+  $.ajax({
+    url: 'http://localhost:3002/graphql',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      query: `
+      {
+        getRecommendations(videoId:${id}) {
+          author,
+          title,
+          thumbnailIndex
+        }
+      }
+    `}),
+  })
+    .done((data) => {
+      console.log(data.data.getRecommendations);
+      callback(data.data.getRecommendations);
+    })
+    .fail(() => {
+      console.log('fail to get data from graphql');
+      // send back default data
+      // callback(defaultVideos)
+    });
+}
+
 module.exports = {
   getVideos,
+  getVideosGQL,
 };

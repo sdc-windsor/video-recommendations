@@ -12,4 +12,4 @@ const port = process.env.PORT || 3002;
 
 apolloServer.applyMiddleware({ app }); // path default to /graphql
 
-app.listen(port, () => console.log(`Apollo server ready at ${port}`));
+app.listen(port, () => console.log(`Apollo server ready at ${port}${apolloServer.graphqlPath}`));
