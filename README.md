@@ -6,14 +6,13 @@
 - Client:
   - React
   
-- Server: both connected to either MySQL or Neo4j
+- Server: both can be connected to either MySQL or Neo4j
   - Express
   - Apollo-GraphQL-Express
 
 - DB
   - MySQL
   - Neo4j: HTTP & Driver
-
 
 ## Related Projects
 
