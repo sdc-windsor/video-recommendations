@@ -9,7 +9,7 @@
 
 - DB
   - MySQL
-  - Neo4j: HTTP & Driver
+  - Neo4j: query via either HTTP or Driver
 
 ## Related Projects
 - Client:
