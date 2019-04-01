@@ -1,5 +1,6 @@
 // /////////////////Using Neo4j HTTP API////////////////////////////////////
 const request = require('request');
+const Promise = require('bluebird');
 const { mapResponse } = require('../utils/genNeo4jQuery.js');
 
 const dbUrl = 'http://localhost:7474/db/data/transaction/commit';
@@ -16,6 +17,7 @@ const cypherMulti = (statementsArray, cb) => {
   (err, res) => { cb(err, res); });
 };
 
+// // for Express API
 const getRecVideos = (videoId, callback) => {
   const videoCount = 10;
   const neo4jQuery = `MATCH (v:Video)-[:HAS_TAG]->(t:Tag)<-[:HAS_TAG]-(r:Video)-[:BELONGS_TO]->(c:Category)<-[:BELONGS_TO]-(v:Video) WHERE id(v) = ${videoId} RETURN r LIMIT ${videoCount}`;
@@ -29,6 +31,29 @@ const getRecVideos = (videoId, callback) => {
       console.log(`Neo4j query took ${new Date() - neot1} ms`);
       callback(mapResponse(res));
     }
+  });
+};
+
+// // for Apollo-GraphQL
+const getRecVideosAsync = (videoId, imagePath) => {
+  const videoCount = 10;
+  const neo4jQuery = `MATCH (v:Video)-[:HAS_TAG]->(t:Tag)<-[:HAS_TAG]-(r:Video)-[:BELONGS_TO]->(c:Category)<-[:BELONGS_TO]-(v:Video) WHERE id(v) = ${videoId} RETURN r LIMIT ${videoCount}`;
+  const statementsArray = [{ statement: neo4jQuery, parameters: null }];
+  const neot2 = new Date();
+
+  return new Promise((resolve, reject) => {
+    cypherMulti(statementsArray, (err, res) => {
+      if (err) {
+        reject(err);
+      } else {
+        console.log(`${new Date() - neot2} ms`);
+        const mappedResponse = mapResponse(res);
+        mappedResponse.forEach((video) => {
+          video.thumbnail = `${imagePath}/${video.thumbnailIndex}.jpg`;
+        });
+        resolve(mappedResponse);
+      }
+    });
   });
 };
 
@@ -50,6 +75,7 @@ const getRecVideos = (videoId, callback) => {
 module.exports = {
   cypherMulti,
   getRecVideos,
+  getRecVideosAsync,
 };
 
 

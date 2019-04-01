@@ -31,18 +31,19 @@ const getVideosGQL = (id, callback) => {
           thumbnail,
         }
       }
-    `}),
+    `,
+    }),
   })
-    .done((data) => {
-      console.log(data.data.getRecommendations);
-      callback(data.data.getRecommendations);
+    .done((response) => {
+      console.log(response.data.getRecommendations);
+      callback(response.data.getRecommendations);
     })
     .fail(() => {
       console.log('fail to get data from graphql');
       // send back default data
       // callback(defaultVideos)
     });
-}
+};
 
 module.exports = {
   getVideos,
