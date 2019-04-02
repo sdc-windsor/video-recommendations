@@ -27,6 +27,7 @@
                 author,
                 thumbnail,
                 title
+                # also available: plays
               }
             }
           `,
@@ -65,9 +66,31 @@
       sample response body:
       
       ```
-      { data: { addTag: { word: "avocado } } }
+      { data: { addTag: { word: "avocado" } } }
       ```
       
+  - ```updatePlays```
+      POST data:
+  
+      ```
+      JSON.stringify({
+            query: `
+            {
+              updatePlays(videoId:${id}) {
+                author,
+                title,
+                # also available: thumbnail, plays
+              }
+            }
+          `,
+          })
+       ```
+
+      sample response body:
+      
+      ```
+      { data: { updatePlays: { author: ""brendadixon", title: "rd on it meh" } } }
+      ```
 ## Implementations
 - Server: both can be connected to either MySQL or Neo4j
   - Express
