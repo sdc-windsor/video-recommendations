@@ -4,7 +4,7 @@
 
 ## CRUD Docs
 ### Express Server
-- ```GET /recommendations/${id}``` to get 10 videos in the same category and with one same tag as the video id.
+- ```GET /recommendations/:id``` to get 10 videos in the same category and with one same tag as the video id.
 
 ### Apollo/GraphQL Server
 - ```POST /graphql``` routes all operations
