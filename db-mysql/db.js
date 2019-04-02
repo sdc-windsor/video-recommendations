@@ -31,7 +31,7 @@ const getRecVideosAsync = (videoId, imagePath) => {
       if (err) {
         reject(err);
       } else {
-        console.log(`${new Date() - sqlt2} ms`);
+        console.log(`MySQL query took ${new Date() - sqlt2} ms`);
         res.forEach((video) => { video.thumbnail = `${imagePath}/${video.thumbnailIndex}.jpg`; });
         resolve(res);
       }
