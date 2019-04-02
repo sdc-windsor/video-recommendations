@@ -14,7 +14,7 @@ const getRecVideosAsync = (videoId, imagePath) => {
       if (err) {
         reject(err);
       } else {
-        console.log(`Neo4j query took ${new Date() - taskStart} ms`);
+        console.log(`Neo4j get video recommendations query took ${new Date() - taskStart} ms`);
         const mappedResponse = mapResponse(res);
         mappedResponse.forEach((video) => {
           video.thumbnail = `${imagePath}/${video.thumbnailIndex}.jpg`;

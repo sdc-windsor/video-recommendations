@@ -12,7 +12,7 @@ const getRecVideos = (videoId, callback) => {
     if (err) {
       console.log(`Query Neo4j error: ${err}`);
     } else {
-      console.log(`Neo4j query took ${new Date() - taskStart} ms`);
+      console.log(`Neo4j get video recommendations query took ${new Date() - taskStart} ms`);
       callback(mapResponse(res));
     }
   });

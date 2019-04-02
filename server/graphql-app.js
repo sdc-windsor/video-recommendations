@@ -18,10 +18,15 @@ const typeDefs = gql`
     author: String
     thumbnail: String
     plays: Int
-    tag_id: Int
+  }
+  type Tag {
+    word: String
   }
   type Query {
     getRecommendations(videoId: Int): [Video]
+    addTag(videoId: Int, tagWord: String): Tag
+    updatePlays(videoId: Int): Video
+    removeTag(videoId: Int, tagWord: String): Tag
   }
 `;
 
@@ -30,12 +35,16 @@ const resolvers = {
     getRecommendations(parent, args) {
       return getRecVideosAsync(args.videoId, s3ImagePath);
     },
+    addTag(parent, args) {
+      return addTagAsync(args.videoId, args.tagWord);
+    },
+    updatePlays(parent, args) {
+      return updatePlayCountAsync(args.videoId, s3ImagePath);
+    },
+    removeTag(parent, args) {
+      return removeTagAsync(args.videoId, args.tagWord);
+    },
   },
-  // Mutation: {
-  //   addVideoAsync,
-  //   updatePlayCountAsync,
-  //   removeTagAsync,
-  // },
 };
 
 module.exports = {
