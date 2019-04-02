@@ -91,6 +91,28 @@
       ```
       { data: { updatePlays: { author: ""brendadixon", title: "rd on it meh" } } }
       ```
+      
+   - ```removeTag```
+      POST data:
+  
+      ```
+      JSON.stringify({
+            query: `
+            {
+              removeTag(videoId:${id}, tagWord:${word}) {
+                word
+              }
+            }
+          `,
+          })
+       ```
+
+      sample response body:
+      
+      ```
+      { data: { removeTag: { word: "avocado" } } }
+      ```
+      
 ## Implementations
 - Server: both can be connected to either MySQL or Neo4j
   - Express
