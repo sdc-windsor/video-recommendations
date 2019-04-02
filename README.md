@@ -2,6 +2,70 @@
 
 > This is a brown field System Design project that refactors server and database code to scale
 
+## CRUD Docs
+### Express Server
+- ```GET /recommendations/${id}``` to get 10 videos in the same category and with one same tag as the video id.
+
+### Apollo/GraphQL Server
+- ```POST /graphql``` routes all operations
+
+- Query Types
+  - ```getRecommendations``` to get 10 videos in the same category and with one same tag as the video id.
+  - ```addTag``` to add a new tag to the video id
+  - ```updatePlays``` to increment the video's play count by 1
+  - ```removeTag``` to remove a tag from the video id
+  
+- Client
+  - ```getRecommendations```
+      POST data:
+  
+      ```
+      JSON.stringify({
+            query: `
+            {
+              addTag(videoId:${id}, tagWord:${word}) {
+                word
+              }
+            }
+          `,
+          })
+       ```
+
+      sample response body:
+      
+      ```
+      [ 
+        { author: "Aubrey"
+        thumbnail: "https://s3-us-west-1.amazonaws.com/elasticbeanstalk-us-west-1-730513610105/images/33.jpg"
+        title: "miotics sl" },
+        { author: "Beck"
+        thumbnail: "https://s3-us-west-1.amazonaws.com/elasticbeanstalk-us-west-1-730513610105/images/74.jpg"
+        title: "xie willia" }
+        ...
+        ]
+      ```
+      
+  - ```addTag```
+      POST data:
+  
+      ```
+      JSON.stringify({
+            query: `
+            {
+              addTag(videoId:${id}, tagWord:${word}) {
+                word
+              }
+            }
+          `,
+          })
+       ```
+
+      sample response body:
+      
+      ```
+      [ { word: "avocado } ]
+      ```
+      
 ## Implementations
 - Server: both can be connected to either MySQL or Neo4j
   - Express
