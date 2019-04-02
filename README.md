@@ -23,8 +23,10 @@
       JSON.stringify({
             query: `
             {
-              addTag(videoId:${id}, tagWord:${word}) {
-                word
+              getRecommendations(videoId:${id}) {
+                author,
+                thumbnail,
+                title
               }
             }
           `,
@@ -34,7 +36,7 @@
       sample response body:
       
       ```
-      [ 
+      { data: { getRecommendations : [ 
         { author: "Aubrey"
         thumbnail: "https://s3-us-west-1.amazonaws.com/elasticbeanstalk-us-west-1-730513610105/images/33.jpg"
         title: "miotics sl" },
@@ -42,7 +44,7 @@
         thumbnail: "https://s3-us-west-1.amazonaws.com/elasticbeanstalk-us-west-1-730513610105/images/74.jpg"
         title: "xie willia" }
         ...
-        ]
+        ] } }
       ```
       
   - ```addTag```
@@ -63,7 +65,7 @@
       sample response body:
       
       ```
-      [ { word: "avocado } ]
+      { data: { addTag: { word: "avocado } } }
       ```
       
 ## Implementations
