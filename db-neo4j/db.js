@@ -15,9 +15,7 @@ const cypherMulti = (statementsArray, cb) => {
   (err, res) => { cb(err, res); });
 };
 
-module.exports = {
-  cypherMulti,
-};
+module.exports = cypherMulti;
 
 // /////////////////Using Neo4j Driver for JS////////////////////////////////////
 // const neo4j = require('neo4j-driver').v1;

@@ -74,8 +74,9 @@ const makeVideoHasMultiTagString = (id) => {
   return `MATCH (v:Video), (a:Tag), (b:Tag), (c:Tag) WHERE id(v) = ${id} and a.word = '${tags[0]}' and b.word = '${tags[1]}' and c.word = '${tags[2]}' create (v)-[:HAS_TAG]->(a), (v)-[:HAS_TAG]->(b), (v)-[:HAS_TAG]->(c)`;
 };
 
+// USING Neo4j HTTP
 // data => data.results[0].data.map(result => result.row[0]);
-const mapResponse = apiData => apiData.results[0].data.map(result => result.row[0]);
+const mapResponse = apiData => apiData.body.results[0].data.map(result => result.row[0]);
 // sample returned data shape: https://neo4j.com/docs/http-api/current/http-api-actions/execute-multiple-statements/
 
 const makeCb = nodeLabel => (err, data) => {
