@@ -43,18 +43,3 @@ module.exports = {
   getRecVideos,
   getRecVideosAsync,
 };
-
-// [{
-// id: 4538,
-// author: 'reneeaguilar',
-// thumbnailIndex: 64,
-// plays: 290,
-// title: 'ocavore selfies marfa normcore bit',
-// tag_id: 234 },
-// {
-// id: 5125,
-// author: 'allanmoreno',
-// thumbnailIndex: 78,
-// plays: 552,
-// title: 'r toast craft beer helvetica cold-',
-// tag_id: 234 }]

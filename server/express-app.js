@@ -29,11 +29,4 @@ app.get('/recommendations/:id', (req, res) => {
   });
 });
 
-// app.post('/recommendations', (req, res) => {
-
-// });
-
-// app.put
-// app.delete
-
 module.exports = app;
