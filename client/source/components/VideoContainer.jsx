@@ -3,7 +3,7 @@ import Video from './Video.jsx';
 
 const VideoContainer = ({ thumbnails, changeVideo }) => (
   <div id="videoContainer">
-    <Video thumbnails={thumbnails} changeVideo={changeVideo} />
+    {thumbnails.map(thumbnail => <Video thumbnail={thumbnail} changeVideo={changeVideo} />)}
   </div>
 );
 

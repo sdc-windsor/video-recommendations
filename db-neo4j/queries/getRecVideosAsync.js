@@ -4,7 +4,7 @@ const cypherMulti = require('../db.js');
 const { mapResponse } = require('../../utils/genNeo4jQuery.js');
 
 const getRecVideosAsync = (videoId, imagePath) => {
-  const videoCount = 10;
+  const videoCount = 100;
   const neo4jQuery = `MATCH (v:Video)-[:HAS_TAG]->(t:Tag)<-[:HAS_TAG]-(r:Video)-[:BELONGS_TO]->(c:Category)<-[:BELONGS_TO]-(v:Video) WHERE id(v) = ${videoId} RETURN r LIMIT ${videoCount}`;
   const statementsArray = [{ statement: neo4jQuery, parameters: null }];
   const taskStart = new Date();

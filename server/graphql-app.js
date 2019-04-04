@@ -14,6 +14,7 @@ const s3ImagePath = 'https://s3-us-west-1.amazonaws.com/elasticbeanstalk-us-west
 
 const typeDefs = gql`
   type Video {
+    id: Int
     title: String
     author: String
     thumbnail: String
