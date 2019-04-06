@@ -123,7 +123,5 @@
   - Neo4j: query via either HTTP or Driver
 
 ## Related Projects
-- Client:
-  - React
-  - Client-side by philxavier: https://github.com/rpt11-spider-n-sleet/felipe-service
+- Client-side legacy code by philxavier: https://github.com/rpt11-spider-n-sleet/felipe-service
   
