@@ -27,7 +27,7 @@
                 author,
                 thumbnail,
                 title
-                # also available: plays
+                # also available: plays, id
               }
             }
           `,
