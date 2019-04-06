@@ -11,10 +11,9 @@ export default class App extends Component {
     this.changeVideo = this.changeVideo.bind(this);
 
     this.state = {
-      thumbnails: [],
+      allThumbnails: [],
+      displayThumbnails: [],
     };
-    this.thumbnails;
-    this.initial = 0;
   }
 
   componentDidMount() {
@@ -23,7 +22,8 @@ export default class App extends Component {
     path === '' ? id = 10000 : id = path;
     this.props.getVideos(id, (res) => {
       this.setState({
-        thumbnails: res,
+        allThumbnails: res,
+        displayThumbnails: res.slice(0, 10),
       });
     });
   }
@@ -35,33 +35,36 @@ export default class App extends Component {
   }
 
   addThumbnails() {
-    this.initial = this.initial + 10;
-    const additionalThumbnails = this.thumbnails.slice(0, this.initial);
+    const displayCount = this.state.displayThumbnails.length;
+    const newDisplay = this.state.displayThumbnails.concat(this.state.allThumbnails.slice(displayCount, displayCount + 10));
     this.setState({
-      thumbnails: additionalThumbnails,
+      displayThumbnails: newDisplay,
     });
   }
 
   changeVideo(id) {
     this.props.getVideos(id, (res) => {
       this.setState({
-        thumbnails: res,
+        allThumbnails: res,
+        displayThumbnails: res.slice(0, 10),
       });
     });
   }
 
   render() {
-    const { thumbnails } = this.state;
+    const { displayThumbnails } = this.state;
 
     return (
       <div id="masterContainer">
         <div className="sidenav">
           <h4 id="title">Related Videos</h4>
           <Switch />
-          <VideoContainer thumbnails={thumbnails} changeVideo={this.changeVideo} />
-          <div className="buttonContainer">
-            <Button addThumbnails={this.addThumbnails} />
-          </div>
+          <VideoContainer thumbnails={displayThumbnails} changeVideo={this.changeVideo} />
+          { displayThumbnails.length < 100 &&
+            <div className="buttonContainer">
+              <Button addThumbnails={this.addThumbnails} />
+            </div>
+          }
         </div>
       </div>
     );

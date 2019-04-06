@@ -28,9 +28,11 @@ const getVideosGQL = (id, callback) => {
       query: `
       {
         getRecommendations(videoId:${id}) {
+          id,
           author,
           title,
           thumbnail,
+          plays
         }
       }
     `,

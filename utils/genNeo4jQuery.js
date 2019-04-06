@@ -76,7 +76,11 @@ const makeVideoHasMultiTagString = (id) => {
 
 // USING Neo4j HTTP
 // data => data.results[0].data.map(result => result.row[0]);
-const mapResponse = apiData => apiData.body.results[0].data.map(result => result.row[0]);
+const mapResponse = apiData => apiData.body.results[0].data.map((result) => {
+  let videoInfo = result.row[0];
+  videoInfo.id = result.meta[0].id;
+  return videoInfo;
+});
 // sample returned data shape: https://neo4j.com/docs/http-api/current/http-api-actions/execute-multiple-statements/
 
 const makeCb = nodeLabel => (err, data) => {
