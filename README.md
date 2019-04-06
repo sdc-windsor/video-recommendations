@@ -10,7 +10,7 @@
 - ```POST /graphql``` routes all operations
 
 - Query Types
-  - ```getRecommendations``` to get 10 videos in the same category and with one same tag as the video id.
+  - ```getRecommendations``` to get 100 videos in the same category and with one same tag as the video id.
   - ```addTag``` to add a new tag to the video id
   - ```updatePlays``` to increment the video's play count by 1
   - ```removeTag``` to remove a tag from the video id
