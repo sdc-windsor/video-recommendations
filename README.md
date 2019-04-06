@@ -121,6 +121,9 @@
 - DB
   - MySQL
   - Neo4j: query via either HTTP or Driver
+  
+- Others
+  - [Kanban board](https://github.com/orgs/sdc-windsor/projects/2)
 
 ## Related Projects
 - Client-side legacy code by philxavier: https://github.com/rpt11-spider-n-sleet/felipe-service
