@@ -79,7 +79,7 @@
               updatePlays(videoId:${id}) {
                 author,
                 title,
-                # also available: thumbnail, plays
+                # also available: thumbnail, plays, id
               }
             }
           `,
