@@ -32,6 +32,7 @@ const getVideosGQL = (id, callback) => {
           author,
           title,
           thumbnail,
+          plays
         }
       }
     `,

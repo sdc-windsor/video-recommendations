@@ -7,7 +7,7 @@ const Video = ({ thumbnail, changeVideo }) => (
     </div>
     <div className="videoTextContainer">
       <div className="videoName">{thumbnail.title}</div>
-      <div className="videoAuthor">{thumbnail.author}</div>
+      <div className="videoAuthor">{thumbnail.author} ∙ {(thumbnail.plays / 1000).toFixed(1)}K views</div>
     </div>
   </div>
 );
