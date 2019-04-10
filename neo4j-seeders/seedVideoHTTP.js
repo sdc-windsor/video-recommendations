@@ -5,7 +5,7 @@ const { makeCreateMultiQuery } = require('../utils/genNeo4jQuery.js');
 const { makeNeo4jVideoDetails } = require('../utils/genVideo.js');
 
 // Video { author: 'kjenner', plays: 10000, thumbnailIndex: 2, title: 'spring 19' }
-const totalCount = 10000000;
+const totalCount = 1000000;
 const queriesPerSingleBatch = 1000;
 const nodesPerQuery = 1;
 
