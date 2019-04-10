@@ -2,6 +2,28 @@
 
 > This is a brown field System Design project that refactors server and database code to scale
 
+## Getting Started
+### Prerequisite
+1. Download Neo4j Desktop https://neo4j.com/download/
+2. Open Desktop App - Add Graph - Create a Local Graph, name: ```recommendations``` | pw: ```sdc```
+3. To access the graph command line: Open http://www.localhost:7474, username: ```neo4j``` | pw: ```sdc```
+
+### Installing
+```npm install```
+
+### Seed Data
+- follow the order below:
+1. seed category nodes: ```npm run neo4j-seed-category```
+2. seed video nodes & video BELONGS_TO category edge: ```npm run neo4j-seed-videoHTTP```
+3. seed tag nodes: ```npm run neo4j-seed-tag```
+4. seed video HAS_TAG tag edge: ```npm run neo4j-seed-videoHasTag```
+
+### Build
+```npm run build```
+
+### Start Server
+```npm start```
+
 ## CRUD Docs
 ### Express Server
 - ```GET /recommendations/:id``` to get 100 videos in the same category and with one same tag as the video id.
