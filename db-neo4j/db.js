@@ -9,7 +9,7 @@ const basicAuth = 'Basic bmVvNGo6c2Rj';
 
 const cypherMulti = (statementsArray, cb) => {
   request.post({
-    uri: `http://${dbUrlAWS}${path}`,
+    uri: `http://${dbUrlLocal}${path}`,
     json: { statements: statementsArray },
     headers: {
       Authorization: basicAuth,
