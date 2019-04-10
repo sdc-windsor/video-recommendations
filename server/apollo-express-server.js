@@ -1,3 +1,4 @@
+require('newrelic');
 const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
 const path = require('path');
@@ -15,5 +16,5 @@ apolloServer.applyMiddleware({ app }); // path default to /graphql
 
 app.listen(port, () => {
   console.log(`Apollo server ready at ${port}${apolloServer.graphqlPath}`);
-  neo4jWarmup(500000, 1000000);
+  neo4jWarmup(0, 100000);
 });

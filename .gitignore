@@ -26,6 +26,9 @@ client/dist/bundle.js
 # change neo4j db password via HTTP request
 db-neo4j/changePW.js
 
+# new relic
+newrelic.js
+
 # old server code
 server-archive/*
 
