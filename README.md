@@ -5,8 +5,8 @@
 ## Getting Started
 ### Prerequisite
 1. Download Neo4j Desktop https://neo4j.com/download/
-2. Open Desktop App - Add Graph - Create a Local Graph, name: ```recommendations``` | pw: ```sdc```
-3. To access the graph command line: Open http://www.localhost:7474, username: ```neo4j``` | pw: ```sdc```
+2. Open Desktop App - Add Graph - Create a Local Graph, use ```recommendations``` / ```sdc```
+3. To access the graph command line: Open http://www.localhost:7474, use ```neo4j``` / ```sdc```
 
 ### Installing
 ```npm install```
