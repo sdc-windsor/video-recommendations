@@ -12,6 +12,7 @@ const getRecVideosAsync = (videoId, imagePath) => {
   return new Promise((resolve, reject) => {
     cypherMulti(statementsArray, (err, res) => {
       if (err) {
+        console.log('query Neo4j db error');
         reject(err);
       } else {
         console.log(`Neo4j get video recommendations query took ${new Date() - taskStart} ms`);

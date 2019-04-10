@@ -23,6 +23,9 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 client/dist/bundle.js
 
+# change neo4j db password via HTTP request
+db-neo4j/changePW.js
+
 # old server code
 server-archive/*
 
