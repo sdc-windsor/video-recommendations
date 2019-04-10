@@ -1,16 +1,13 @@
 // Using Neo4j HTTP API
 const Promise = require('bluebird');
-const cypherMultiAsync = Promise.promisify(require('../db-neo4j/db.js').cypherMulti);
+const cypherMultiAsync = Promise.promisify(require('../db-neo4j/db.js'));
 const { makeCreateMultiQuery } = require('../utils/genNeo4jQuery.js');
 const { makeNeo4jVideoDetails } = require('../utils/genVideo.js');
 
 // Video { author: 'kjenner', plays: 10000, thumbnailIndex: 2, title: 'spring 19' }
-// const totalCount = 10000000;
-// const queriesPerSingleBatch = 2000;
-// const nodesPerQuery = 500;
-const totalCount = 100000;
-const queriesPerSingleBatch = 20;
-const nodesPerQuery = 500;
+const totalCount = 10000000;
+const queriesPerSingleBatch = 1000;
+const nodesPerQuery = 1;
 
 const singleBatch = [];
 let batchCount = 0;
@@ -31,7 +28,6 @@ const insertBatchAsync = () => {
       dataArray.push(makeNeo4jVideoDetails());
     }
     const singleQuery = makeCreateMultiQuery(dataArray, nodeLabel);
-    console.log(singleQuery);
     singleBatch.push(singleQuery);
   }
 
@@ -43,8 +39,8 @@ const insertBatchAsync = () => {
     })
     .then(() => {
       batchCount += 1;
-      console.log(`batchCount${batchCount}`);
-      console.log(`seeded ${batchCount} million nodes`);
+      console.log(new Date() - start);
+      console.log(`seeded ${batchCount}k nodes`);
     })
     .then(() => {
       if (batchCount >= totalCount / queriesPerSingleBatch / nodesPerQuery) {

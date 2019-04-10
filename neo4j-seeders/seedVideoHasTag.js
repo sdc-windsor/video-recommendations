@@ -1,14 +1,20 @@
+// Use Neo4j HTTP
+const Promise = require('bluebird');
 const { demoTags } = require('../sample/ipsum.js');
-const { session } = require('../db-neo4j/db.js');
 const makeRandomIndex = require('../utils/genRandomIndex');
 const { makeVideoHasTagString } = require('../utils/genNeo4jQuery');
+const cypherMultiAsync = Promise.promisify(require('../db-neo4j/db.js'));
+
 
 // this script CREATEs Video HAS_TAG relationship
 // MATCH (v:Video), (t:Tag) where id(v) = 1000 and t.word = 'stumptown' create (v)-[:HAS_TAG]->(t)
 
 // Video node id starts at 255
-let videoIdStart = 1044780;
-const videoIdEnd = 10000604;
+// let videoIdStart = 11;
+// const videoIdEnd = 250000;
+// const videosPerBatch = 1000;
+let videoIdStart = 250000;
+const videoIdEnd = 5000000;
 const videosPerBatch = 1000;
 const tagMax = 5;
 const tagMin = 1;
@@ -25,7 +31,7 @@ const VideoHasTagAsync = () => {
     }
   }
 
-  return Promise.all(singleBatch.map(singleQuery => session.run(singleQuery)))
+  cypherMultiAsync(singleBatch)
     .then(() => {
       while (singleBatch.length > 0) {
         singleBatch.pop();
@@ -34,7 +40,7 @@ const VideoHasTagAsync = () => {
     .then(() => {
       videoIdStart += videosPerBatch;
       console.log(`total ${new Date() - sessionStart} milliseconds`);
-      console.log(videoIdStart);
+      console.log(`videoId start: ${videoIdStart}`);
     })
     .then(() => {
       if (videoIdStart >= videoIdEnd) {

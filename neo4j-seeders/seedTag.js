@@ -1,6 +1,6 @@
 // Using Neo4j HTTP API
 
-const { cypherMulti } = require('../db-neo4j/db.js');
+const cypherMulti = require('../db-neo4j/db.js');
 const {
   makeConstraintArray,
   makeCreateSingleArray,

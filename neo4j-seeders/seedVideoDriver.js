@@ -10,9 +10,12 @@ const { makeNeo4jVideoDetails } = require('../utils/genVideo.js');
 
 // (:Video { author: 'kjenner', plays: 10000, thumbnailIndex: 2, title: 'spring 19' })
 // -[:BELONGS_TO]->(:Category {name: 'fashion'})
-const totalCount = 10000000;
-const queriesPerSingleBatch = 500;
-const nodesPerQuery = 800;
+// const totalCount = 10000000;
+// const queriesPerSingleBatch = 500;
+// const nodesPerQuery = 800;
+const totalCount = 20;
+const queriesPerSingleBatch = 2;
+const nodesPerQuery = 5;
 const singleBatch = [];
 let count = 0;
 
