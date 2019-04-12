@@ -60,10 +60,12 @@ export default class App extends Component {
           <h4 id="title">Related Videos</h4>
           <Switch />
           <VideoContainer thumbnails={displayThumbnails} changeVideo={this.changeVideo} />
-          { displayThumbnails.length < 100 &&
+          { displayThumbnails.length < 100
+            && (
             <div className="buttonContainer">
               <Button addThumbnails={this.addThumbnails} />
             </div>
+            )
           }
         </div>
       </div>

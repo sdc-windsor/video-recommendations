@@ -5,6 +5,7 @@
 npm
 npm-debug.log
 node_modules/
+package-lock.json
 
 pids
 *.pid
@@ -28,6 +29,9 @@ db-neo4j/changePW.js
 
 # new relic
 newrelic.js
+
+# artillery
+service-artillery.yml
 
 # old server code
 server-archive/*

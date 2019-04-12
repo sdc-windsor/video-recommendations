@@ -3,13 +3,13 @@ const dbUrlAWS = 'ec2-54-241-154-133.us-west-1.compute.amazonaws.com/';
 const request = require('request');
 
 const path = 'db/data/transaction/commit';
-const dbUrlLocal = 'http://localhost:7474/';
+const dbUrlLocal = 'localhost:7474/';
 // 64 basic encoding: 'neo4j:sdc'
 const basicAuth = 'Basic bmVvNGo6c2Rj';
 
 const cypherMulti = (statementsArray, cb) => {
   request.post({
-    uri: `http://${dbUrlLocal}${path}`,
+    uri: `http://${dbUrlAWS}${path}`,
     json: { statements: statementsArray },
     headers: {
       Authorization: basicAuth,
