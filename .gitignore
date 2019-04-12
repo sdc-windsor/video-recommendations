@@ -5,6 +5,7 @@
 npm
 npm-debug.log
 node_modules/
+package-lock.json
 
 pids
 *.pid
@@ -25,6 +26,12 @@ client/dist/bundle.js
 
 # change neo4j db password via HTTP request
 db-neo4j/changePW.js
+
+# new relic
+newrelic.js
+
+# artillery
+service-artillery.yml
 
 # old server code
 server-archive/*

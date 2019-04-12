@@ -2,8 +2,8 @@
 const cypherMulti = require('../db.js');
 
 const neo4jWarmup = (nodeStart, nodeEnd) => {
-  // const neo4jQuery = `MATCH (n) OPTIONAL MATCH (n)-[r]->() WHERE id(n) >= ${nodeStart} AND id(n) <= ${nodeEnd} RETURN count(n.prop) + count(r.prop)`;
-  const neo4jQuery = 'MATCH (v:Video)-[r:HAS_TAG]->(t:Tag) WHERE id(v) = 250000 return t';
+  const neo4jQuery = `MATCH (n) OPTIONAL MATCH (n)-[r]->() WHERE id(n) >= ${nodeStart} AND id(n) <= ${nodeEnd} RETURN count(n.prop) + count(r.prop)`;
+  // const neo4jQuery = 'MATCH (v:Video)-[r:HAS_TAG]->(t:Tag) WHERE id(v) = 1010000 return t';
   const statementsArray = [{ statement: neo4jQuery, parameters: null }];
   const warmStart = new Date();
 

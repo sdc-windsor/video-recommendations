@@ -5,7 +5,6 @@ const makeRandomIndex = require('../utils/genRandomIndex');
 const { makeVideoHasTagString } = require('../utils/genNeo4jQuery');
 const cypherMultiAsync = Promise.promisify(require('../db-neo4j/db.js'));
 
-
 // this script CREATEs Video HAS_TAG relationship
 // MATCH (v:Video), (t:Tag) where id(v) = 1000 and t.word = 'stumptown' create (v)-[:HAS_TAG]->(t)
 
@@ -13,9 +12,9 @@ const cypherMultiAsync = Promise.promisify(require('../db-neo4j/db.js'));
 // let videoIdStart = 11;
 // const videoIdEnd = 250000;
 // const videosPerBatch = 1000;
-let videoIdStart = 11;
-const videoIdEnd = 1000000;
-const videosPerBatch = 1000;
+let videoIdStart = 959890;
+const videoIdEnd = 1100000;
+const videosPerBatch = 500;
 const tagMax = 5;
 const tagMin = 1;
 
