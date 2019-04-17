@@ -6,7 +6,7 @@ const PROD_URL = require('../EC2.js').SERVICE_PROD_URL;
 // for Apollo-Graphql server
 const getVideosGQL = (id, callback) => {
   $.ajax({
-    url: `${PROD_URL}/graphql`,
+    url: '/graphql',
     type: 'POST',
     contentType: 'application/json',
     data: JSON.stringify({
@@ -36,7 +36,7 @@ const getVideosGQL = (id, callback) => {
 // for Express server
 const getVideos = (id, callback) => {
   $.ajax({
-    url: `${PROD_URL}/recommendations/${id}`,
+    url: `/recommendations/${id}`,
     type: 'GET',
     contentType: 'application/json',
   })
