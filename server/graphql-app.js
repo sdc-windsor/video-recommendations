@@ -1,8 +1,10 @@
 const { gql } = require('apollo-server-express');
+const { categoryTagCache } = require('./serverCache.js');
 
 // // Connect to either MySQL or Neo4j
 // const { getRecVideosAsync } = require('../db-mysql/db.js');
 const getRecVideosAsync = require('../db-neo4j/queries/getRecVideosAsync.js');
+const getCategoryTagAsync = require('../db-neo4j/queries/getCategoryTagAsync.js');
 
 // Additional CRUD Ops
 const addTagAsync = require('../db-neo4j/queries/addTagAsync.js');
@@ -31,10 +33,26 @@ const typeDefs = gql`
   }
 `;
 
+// cache 'category'+'keyword': result
+// const getRecommendationsCache = {};
+
 const resolvers = {
   Query: {
     getRecommendations(parent, args) {
-      return getRecVideosAsync(args.videoId, s3ImagePath);
+      const start = new Date();
+      return getCategoryTagAsync(args.videoId)
+        .then((categoryTagObject) => {
+          const key = `${categoryTagObject.name}$${categoryTagObject.word}`;
+          if (categoryTagCache[key]) {
+            console.log(`cached: fetch results in ${new Date() - start} ms`);
+            return categoryTagCache[key];
+          }
+          console.log(`new: fetch results in ${new Date() - start} ms`);
+          return getRecVideosAsync(categoryTagObject, s3ImagePath);
+        })
+        .catch((err) => {
+          console.log(`getRec error: ${JSON.stringify(err)}`);
+        });
     },
     addTag(parent, args) {
       return addTagAsync(args.videoId, args.tagWord);

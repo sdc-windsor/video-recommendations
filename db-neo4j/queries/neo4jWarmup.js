@@ -1,20 +1,12 @@
 // warm the cache to improve query performance
-const cypherMulti = require('../db.js');
+const getRecVideosAsync = require('./getRecVideosAsync.js');
+
+const s3ImagePath = 'https://s3-us-west-1.amazonaws.com/elasticbeanstalk-us-west-1-730513610105/images';
 
 const neo4jWarmup = (nodeStart, nodeEnd) => {
-  const neo4jQuery = `MATCH (n) OPTIONAL MATCH (n)-[r]->() WHERE id(n) >= ${nodeStart} AND id(n) <= ${nodeEnd} RETURN count(n.prop) + count(r.prop)`;
-  // const neo4jQuery = 'MATCH (v:Video)-[r:HAS_TAG]->(t:Tag) WHERE id(v) = 1010000 return t';
-  const statementsArray = [{ statement: neo4jQuery, parameters: null }];
-  const warmStart = new Date();
-
-  cypherMulti(statementsArray, (err, res) => {
-    if (err) {
-      console.log(`Query Neo4j error: ${err}`);
-    } else {
-      console.log(JSON.stringify(res.body));
-      console.log(`Neo4j warmed up, touched nodes from ${nodeStart} to ${nodeEnd}. Warmup took ${new Date() - warmStart} ms`);
-    }
-  });
+  for (let i = nodeStart; i <= nodeEnd; i += 1) {
+    getRecVideosAsync(i, s3ImagePath);
+  }
 };
 
 module.exports = neo4jWarmup;

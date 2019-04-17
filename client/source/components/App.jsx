@@ -6,49 +6,49 @@ import Button from './Button.jsx';
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.changeThumbnails = this.changeThumbnails.bind(this);
     this.addThumbnails = this.addThumbnails.bind(this);
     this.changeVideo = this.changeVideo.bind(this);
 
     this.state = {
-      allThumbnails: [],
+      currentId: 10000,
+      allThumbnails: {},
       displayThumbnails: [],
     };
   }
 
   componentDidMount() {
-    const path = window.location.pathname.split('/')[1];
-    let id;
-    path === '' ? id = 10000 : id = path;
-    this.props.getVideos(id, (res) => {
-      this.setState({
-        allThumbnails: res,
-        displayThumbnails: res.slice(0, 10),
-      });
-    });
-  }
-
-  changeThumbnails(inputThumbnails) {
-    this.setState({
-      thumbnails: inputThumbnails,
-    });
+    const { currentId } = this.state;
+    const pathId = window.location.pathname.split('/')[1];
+    const id = pathId === '' ? currentId : pathId;
+    this.changeVideo(id);
   }
 
   addThumbnails() {
-    const displayCount = this.state.displayThumbnails.length;
-    const newDisplay = this.state.displayThumbnails.concat(this.state.allThumbnails.slice(displayCount, displayCount + 10));
+    const { displayThumbnails, allThumbnails, currentId } = this.state;
+    const displayCount = displayThumbnails.length;
+    const newDisplay = displayThumbnails.concat(allThumbnails[currentId].slice(displayCount, displayCount + 10));
     this.setState({
       displayThumbnails: newDisplay,
     });
   }
 
   changeVideo(id) {
-    this.props.getVideos(id, (res) => {
+    const { allThumbnails } = this.state;
+    if (allThumbnails[id]) {
       this.setState({
-        allThumbnails: res,
-        displayThumbnails: res.slice(0, 10),
+        currentId: id,
+        displayThumbnails: allThumbnails[id].slice(0, 10),
       });
-    });
+    } else {
+      this.props.getVideos(id, (res) => {
+        const cache = allThumbnails;
+        this.setState({
+          currentId: id,
+          allThumbnails: Object.assign({}, cache, { [id]: res }),
+          displayThumbnails: res.slice(0, 10),
+        });
+      });
+    }
   }
 
   render() {

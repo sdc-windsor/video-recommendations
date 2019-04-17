@@ -14,7 +14,8 @@ const port = process.env.PORT || 3002;
 
 apolloServer.applyMiddleware({ app }); // path default to /graphql
 
+
 app.listen(port, () => {
   console.log(`Apollo server ready at ${port}${apolloServer.graphqlPath}`);
-  neo4jWarmup(0, 100000);
+  neo4jWarmup(1200, 3000);
 });
