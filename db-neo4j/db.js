@@ -1,15 +1,17 @@
-const dbUrlAWS = 'ec2-54-241-154-133.us-west-1.compute.amazonaws.com/';
-// /////////////////Using Neo4j HTTP API////////////////////////////////////
 const request = require('request');
+// /////////////////Using Neo4j HTTP API////////////////////////////////////
+
+const dbUrlLocal = 'localhost:7474';
+const dbUrlAWS = require('../EC2.js').DB_PROD_URL;
 
 const path = 'db/data/transaction/commit';
-const dbUrlLocal = 'localhost:7474/';
+
 // 64 basic encoding: 'neo4j:sdc'
 const basicAuth = 'Basic bmVvNGo6c2Rj';
 
 const cypherMulti = (statementsArray, cb) => {
   request.post({
-    uri: `http://${dbUrlAWS}${path}`,
+    uri: `http://${dbUrlAWS}/${path}`,
     json: { statements: statementsArray },
     headers: {
       Authorization: basicAuth,

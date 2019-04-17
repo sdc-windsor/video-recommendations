@@ -1,27 +1,12 @@
 const $ = require('jquery');
 
-const localPort = 3002;
+const PROD_URL = require('../EC2.js').SERVICE_PROD_URL;
+// const DEV_URL = 'http://localhost:3002';
 
-const getVideos = (id, callback) => {
-  $.ajax({
-    url: `http://localhost:${localPort}/recommendations/${id}`,
-    type: 'GET',
-    contentType: 'application/json',
-  })
-    .done((data) => {
-      console.log(data);
-      callback(data);
-    })
-    .fail(() => {
-      console.log('fail to get /recommendations/:id');
-      // send back default data
-      // callback(defaultVideos)
-    });
-};
-
+// for Apollo-Graphql server
 const getVideosGQL = (id, callback) => {
   $.ajax({
-    url: `http://localhost:${localPort}/graphql`,
+    url: `${PROD_URL}/graphql`,
     type: 'POST',
     contentType: 'application/json',
     data: JSON.stringify({
@@ -48,6 +33,21 @@ const getVideosGQL = (id, callback) => {
     });
 };
 
+// for Express server
+const getVideos = (id, callback) => {
+  $.ajax({
+    url: `${PROD_URL}/recommendations/${id}`,
+    type: 'GET',
+    contentType: 'application/json',
+  })
+    .done((data) => {
+      console.log(data);
+      callback(data);
+    })
+    .fail(() => {
+      console.log('fail to get /recommendations/:id');
+    });
+};
 
 module.exports = {
   getVideos,
