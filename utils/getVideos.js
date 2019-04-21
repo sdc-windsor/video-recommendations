@@ -4,7 +4,8 @@ const PROD_URL = require('../EC2.js').SERVICE_PROD_URL;
 // for Apollo-Graphql server
 const getVideosGQL = (id, callback) => {
   $.ajax({
-    url: `http://${PROD_URL}/graphql`,
+    // url: `http://${PROD_URL}/graphql`,
+    url: '/graphql',
     type: 'POST',
     contentType: 'application/json',
     data: JSON.stringify({
