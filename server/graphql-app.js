@@ -54,6 +54,7 @@ const resolvers = {
           console.log(`getRec error: ${JSON.stringify(err)}`);
         });
     },
+    // Additional CRUD Ops available
     addTag(parent, args) {
       return addTagAsync(args.videoId, args.tagWord);
     },

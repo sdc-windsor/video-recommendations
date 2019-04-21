@@ -1,5 +1,7 @@
 require('newrelic');
 const cors = require('cors');
+const compression = require('compression');
+
 const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
 const path = require('path');
@@ -10,6 +12,7 @@ const app = express();
 
 app.use('/:id', express.static(path.join(__dirname, '../dist')));
 app.use(cors());
+app.use(compression());
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 const port = process.env.PORT || 3002;
