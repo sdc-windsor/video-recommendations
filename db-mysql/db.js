@@ -4,7 +4,7 @@ const db = require('./connection.js').devDB;
 // for Express API
 const getRecVideos = (videoId, callback) => {
   console.log(videoId);
-  const videoCount = 100;
+  const videoCount = 30;
   const sqlString = `SELECT video.id, video.author, video.thumbnailIndex, video.plays, video.title, video_tag.tag_id FROM video INNER JOIN video_tag ON video.id = video_tag.video_id WHERE video.category_id = (SELECT category_id from video WHERE id = ${videoId}) AND video_tag.tag_id = (SELECT tag_id FROM video_tag WHERE video_id = ${videoId} LIMIT 1) LIMIT ${videoCount}`;
   const sqlArgs = [];
   const sqlt1 = new Date();
@@ -21,7 +21,7 @@ const getRecVideos = (videoId, callback) => {
 
 // for Apollo-GraphQL
 const getRecVideosAsync = (videoId, imagePath) => {
-  const videoCount = 100;
+  const videoCount = 30;
   const sqlString = `SELECT video.id, video.author, video.thumbnailIndex, video.plays, video.title, video_tag.tag_id FROM video INNER JOIN video_tag ON video.id = video_tag.video_id WHERE video.category_id = (SELECT category_id from video WHERE id = ${videoId}) AND video_tag.tag_id = (SELECT tag_id FROM video_tag WHERE video_id = ${videoId} LIMIT 1) LIMIT ${videoCount}`;
   const sqlArgs = [];
   const sqlt2 = new Date();

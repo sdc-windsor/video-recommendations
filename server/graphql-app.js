@@ -1,5 +1,10 @@
 const { gql } = require('apollo-server-express');
-const { categoryTagCache } = require('./serverCache.js');
+
+const redisClient = require('../redis/client.js');
+const HGETCategoryTag = require('../redis/hgetCategoryTagAsync.js');
+const HSETCategoryTag = require('../redis/hsetCategoryTagAsync.js');
+const HGETIdTag = require('../redis/hgetIdAsync.js');
+const HSETIdTag = require('../redis/hsetIdAsync.js');
 
 // // Connect to either MySQL or Neo4j
 // const { getRecVideosAsync } = require('../db-mysql/db.js');
@@ -10,6 +15,8 @@ const getCategoryTagAsync = require('../db-neo4j/queries/getCategoryTagAsync.js'
 const addTagAsync = require('../db-neo4j/queries/addTagAsync.js');
 const updatePlayCountAsync = require('../db-neo4j/queries/updatePlayCountAsync.js');
 const removeTagAsync = require('../db-neo4j/queries/removeTagAsync.js');
+
+const addImagePath = require('../utils/addImagePath.js');
 
 const localImagePath = '../../sample/images';
 const s3ImagePath = 'https://s3-us-west-1.amazonaws.com/elasticbeanstalk-us-west-1-730513610105/images';
@@ -40,20 +47,35 @@ const resolvers = {
   Query: {
     getRecommendations(parent, args) {
       const start = new Date();
-      return getCategoryTagAsync(args.videoId)
-        .then((categoryTagObject) => {
-          const key = `${categoryTagObject.name}$${categoryTagObject.word}`;
-          if (categoryTagCache[key]) {
-            console.log(`cached: fetch results in ${new Date() - start} ms`);
-            return categoryTagCache[key];
+      return HGETIdTag(redisClient, args.videoId)
+        .then((redisIdRes) => {
+          if (redisIdRes !== null) {
+            console.log(`fetched id results from redis in ${new Date() - start}ms`);
+            return addImagePath(redisIdRes, s3ImagePath);
           }
-          console.log(`new: fetch results in ${new Date() - start} ms`);
-          return getRecVideosAsync(categoryTagObject, s3ImagePath);
-        })
-        .catch((err) => {
-          console.log(`getRec error: ${JSON.stringify(err)}`);
+          return getCategoryTagAsync(args.videoId)
+            .then((categoryTagObject) => {
+              const key = `${categoryTagObject.name}$${categoryTagObject.word}`;
+              return HGETCategoryTag(redisClient, key)
+                .then((redisCategoryTagRes) => {
+                  if (redisCategoryTagRes !== null) {
+                    console.log(`fetched category tag results from redis in ${new Date() - start}ms`);
+                    return addImagePath(redisCategoryTagRes, s3ImagePath);
+                  }
+                  return getRecVideosAsync(categoryTagObject, s3ImagePath)
+                    .then((res) => {
+                      HSETCategoryTag(redisClient, key, res)
+                        .then(result => console.log('set new redis category tag success'));
+                      HSETIdTag(redisClient, args.videoId, res)
+                        .then(result => console.log('set new redis id success'));
+                      console.log(`get rec videos in ${new Date() - start} ms`);
+                      return addImagePath(res, s3ImagePath);
+                    });
+                });
+            });
         });
     },
+    // Additional CRUD Ops available
     addTag(parent, args) {
       return addTagAsync(args.videoId, args.tagWord);
     },

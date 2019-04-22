@@ -1,12 +1,14 @@
 const $ = require('jquery');
 
 const PROD_URL = require('../EC2.js').SERVICE_PROD_URL;
-// const DEV_URL = 'http://localhost:3002';
+
+const DEV_URL = '127.0.0.1:3002';
 
 // for Apollo-Graphql server
 const getVideosGQL = (id, callback) => {
+  console.log(id);
   $.ajax({
-    url: '/graphql',
+    url: `http://${PROD_URL}/graphql`,
     type: 'POST',
     contentType: 'application/json',
     data: JSON.stringify({
@@ -24,6 +26,7 @@ const getVideosGQL = (id, callback) => {
     }),
   })
     .done((response) => {
+      console.log(response);
       const videos = response.data.getRecommendations;
       console.log(videos);
       callback(videos);
