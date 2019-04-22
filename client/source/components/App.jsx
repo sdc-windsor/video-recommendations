@@ -10,7 +10,7 @@ export default class App extends Component {
     this.changeVideo = this.changeVideo.bind(this);
 
     this.state = {
-      currentId: 9999998,
+      currentId: 9999999,
       allThumbnails: {},
       displayThumbnails: [],
     };

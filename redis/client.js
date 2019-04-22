@@ -1,13 +1,15 @@
 const redis = require('redis');
 
+const { REDIS_PROD_URL, REDIS_PROD_PORT } = require('../EC2.js');
+
 const devConf = {
   host: '127.0.0.1',
   port: '6379',
 };
 
 const prodConf = {
-  host: '54.193.59.71',
-  port: '6379',
+  host: REDIS_PROD_URL,
+  port: REDIS_PROD_PORT,
 };
 
 const client = redis.createClient(prodConf);

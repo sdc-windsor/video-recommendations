@@ -5,7 +5,7 @@ const { mapResponse } = require('../../utils/genNeo4jQuery.js');
 
 const getRecVideosAsync = (categoryTagObject) => {
   const { name, word } = categoryTagObject;
-  const videoCount = 100;
+  const videoCount = 30;
   const neo4jQuery = `MATCH (t:Tag)<-[:HAS_TAG]-(v:Video)-[:BELONGS_TO]->(c:Category) WHERE c.name = "${name}" AND t.word = "${word}" RETURN v LIMIT ${videoCount}`;
   const statementsArray = [{ statement: neo4jQuery, parameters: null }];
 
