@@ -1,4 +1,5 @@
 const { gql } = require('apollo-server-express');
+
 const redisClient = require('../redis/client.js');
 const HGETCategoryTag = require('../redis/hgetCategoryTagAsync.js');
 const HSETCategoryTag = require('../redis/hsetCategoryTagAsync.js');
@@ -14,6 +15,8 @@ const getCategoryTagAsync = require('../db-neo4j/queries/getCategoryTagAsync.js'
 const addTagAsync = require('../db-neo4j/queries/addTagAsync.js');
 const updatePlayCountAsync = require('../db-neo4j/queries/updatePlayCountAsync.js');
 const removeTagAsync = require('../db-neo4j/queries/removeTagAsync.js');
+
+const addImagePath = require('../utils/addImagePath.js');
 
 const localImagePath = '../../sample/images';
 const s3ImagePath = 'https://s3-us-west-1.amazonaws.com/elasticbeanstalk-us-west-1-730513610105/images';
@@ -48,7 +51,7 @@ const resolvers = {
         .then((redisIdRes) => {
           if (redisIdRes !== null) {
             console.log(`fetched id results from redis in ${new Date() - start}ms`);
-            return redisIdRes;
+            return addImagePath(redisIdRes, s3ImagePath);
           }
           return getCategoryTagAsync(args.videoId)
             .then((categoryTagObject) => {
@@ -57,7 +60,7 @@ const resolvers = {
                 .then((redisCategoryTagRes) => {
                   if (redisCategoryTagRes !== null) {
                     console.log(`fetched category tag results from redis in ${new Date() - start}ms`);
-                    return redisCategoryTagRes;
+                    return addImagePath(redisCategoryTagRes, s3ImagePath);
                   }
                   return getRecVideosAsync(categoryTagObject, s3ImagePath)
                     .then((res) => {
@@ -66,7 +69,7 @@ const resolvers = {
                       HSETIdTag(redisClient, args.videoId, res)
                         .then(result => console.log('set new redis id success'));
                       console.log(`get rec videos in ${new Date() - start} ms`);
-                      return res;
+                      return addImagePath(res, s3ImagePath);
                     });
                 });
             });

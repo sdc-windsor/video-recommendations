@@ -3,7 +3,7 @@ const Promise = require('bluebird');
 const cypherMulti = require('../db.js');
 const { mapResponse } = require('../../utils/genNeo4jQuery.js');
 
-const getRecVideosAsync = (categoryTagObject, imagePath) => {
+const getRecVideosAsync = (categoryTagObject) => {
   const { name, word } = categoryTagObject;
   const videoCount = 100;
   const neo4jQuery = `MATCH (t:Tag)<-[:HAS_TAG]-(v:Video)-[:BELONGS_TO]->(c:Category) WHERE c.name = "${name}" AND t.word = "${word}" RETURN v LIMIT ${videoCount}`;
@@ -16,9 +16,6 @@ const getRecVideosAsync = (categoryTagObject, imagePath) => {
         reject(error);
       } else {
         const mappedResponse = mapResponse(response);
-        mappedResponse.forEach((video) => {
-          video.thumbnail = `${imagePath}/${video.thumbnailIndex}.jpg`;
-        });
         resolve(mappedResponse);
       }
     });

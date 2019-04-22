@@ -6,7 +6,7 @@ const { getRecVideos } = require('../db-neo4j/db.js');
 
 const app = express();
 
-app.use('/:id', express.static(path.join(__dirname, '../client/dist')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(parser.json());
 
 app.use((req, res, next) => {

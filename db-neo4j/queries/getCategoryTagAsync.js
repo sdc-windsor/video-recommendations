@@ -3,7 +3,7 @@ const cypherMulti = require('../db.js');
 
 const getCategoryTagAsync = (videoId) => {
   // for load testing purpose, query a randomly generated id
-  const id = Math.floor(Math.random() * 1000000) + 9000000;
+  const id = Math.floor(Math.random() * 100000) + 9000000;
   const neo4jQuery = `MATCH (c:Category)<-[:BELONGS_TO]-(v:Video)-[:HAS_TAG]->(t:Tag) WHERE id(v) = ${id} RETURN c, t LIMIT 1`;
   const statementsArray = [{ statement: neo4jQuery, parameters: null }];
   // const taskStart = new Date();
