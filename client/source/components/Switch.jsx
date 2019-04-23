@@ -14,10 +14,9 @@ class SwitchExample extends Component {
 
   render() {
     return (
-      <div className="switchButtonContainer">
+      <div>
         <div className="switchDiv">
           <Switch
-            className="switch"
             onChange={this.handleChange}
             checked={this.state.checked}
             height={15}
@@ -28,9 +27,7 @@ class SwitchExample extends Component {
             onColor="#00adef"
           />
         </div>
-        <div className="switchName">
-          <p className="switchText">Autoplay next video</p>
-        </div>
+        <p className="switchText">Autoplay next video</p>
       </div>
     );
   }

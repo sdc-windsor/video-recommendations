@@ -23,7 +23,7 @@ body {
     border-color:lightgray; */
     margin-bottom: 20%;
   }
-  
+
   .sidenav a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
@@ -31,22 +31,22 @@ body {
     color: #818181;
     display: block;
   }
-  
+
   .sidenav a:hover {
     color: #f1f1f1;
   }
-  
+
   .main {
     margin-left: 160px; /* Same as the width of the sidenav */
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
   }
-  
+
   @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
   }
-    
+
 #title {
     color: rgb(26, 46, 59);
     font-size: 1.125rem;
@@ -84,11 +84,6 @@ body {
   display: inline;
 }
 
-.switchButtonContainer {
-  display: inline;
-  padding-top:1%;
-}
-
 .switchNameContainer {
   display: inline;
   width:100%;
@@ -112,15 +107,8 @@ body {
 .imageContainer {
     margin-right: .9375rem;
     flex-basis: 44.9%;
-    flex-shrink: 0; 
+    flex-shrink: 0;
     cursor: pointer;
-
-}
-
-.videoTextContainer {
-  align-self: center;
-  flex:1;
-  float: right;
 }
 
 .videoName {
@@ -159,15 +147,8 @@ body {
   margin-left: 3%;
 }
 
-.firstItem{
-  outline: 5px solid #00adef;
-  outline-offset: -4px;
-  
-}
-
 .buttonContainer {
   text-align: center;
-  
 }
 
 .button {
@@ -178,7 +159,6 @@ body {
     font-size: 16px;
     cursor: pointer;
     border-radius: 0.1875rem;
-  
 }
 
 .button:active {

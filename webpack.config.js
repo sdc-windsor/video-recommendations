@@ -1,6 +1,10 @@
 module.exports = {
-  entry: `${__dirname}/client/source/index.jsx`,
   mode: 'production',
+  entry: `${__dirname}/client/source/index.jsx`,
+  output: {
+    filename: 'bundle.js',
+    path: `${__dirname}/dist`,
+  },
   module: {
     rules: [
       {
@@ -14,10 +18,5 @@ module.exports = {
         },
       },
     ],
-  },
-
-  output: {
-    filename: 'bundle.js',
-    path: `${__dirname}/dist`,
   },
 };
