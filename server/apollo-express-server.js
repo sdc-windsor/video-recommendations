@@ -1,6 +1,5 @@
 require('newrelic');
 const cors = require('cors');
-const compression = require('compression');
 
 const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
@@ -9,9 +8,8 @@ const { typeDefs, resolvers } = require('./graphql-app.js');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '../dist'), { maxAge: '1m' }));
 app.use(cors());
-app.use(compression());
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 const port = process.env.PORT || 3002;
