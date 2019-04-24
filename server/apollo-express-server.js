@@ -1,21 +1,39 @@
 require('newrelic');
 const cors = require('cors');
+const cluster = require('cluster');
+const http = require('http');
+const numCPUs = require('os').cpus().length;
 
 const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
 const path = require('path');
 const { typeDefs, resolvers } = require('./graphql-app.js');
 
-const app = express();
+if (cluster.isMaster) {
+  console.log(`Master ${process.pid} is running`);
 
-app.use(express.static(path.join(__dirname, '../dist'), { maxAge: '1m' }));
-app.use(cors());
+  // Fork workers.
+  for (let i = 0; i < numCPUs; i += 1) {
+    cluster.fork();
+  }
 
-const apolloServer = new ApolloServer({ typeDefs, resolvers });
-const port = process.env.PORT || 3002;
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+  });
+} else {
+  // Workers can share any TCP connection
+  // In this case it is an HTTP server
+  const app = express();
 
-apolloServer.applyMiddleware({ app }); // path default to /graphql
+  app.use(express.static(path.join(__dirname, '../dist'), { maxAge: '1m' }));
+  app.use(cors());
 
-app.listen(port, () => {
-  console.log(`Apollo server ready at ${port}${apolloServer.graphqlPath}`);
-});
+  const apolloServer = new ApolloServer({ typeDefs, resolvers });
+  const port = process.env.PORT || 3002;
+
+  apolloServer.applyMiddleware({ app }); // path default to /graphql
+  console.log(`Worker ${process.pid} started`);
+  app.listen(port, () => {
+    console.log(`Apollo server ready at ${port}${apolloServer.graphqlPath}`);
+  });
+}
