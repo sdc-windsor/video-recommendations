@@ -1,6 +1,7 @@
 const $ = require('jquery');
 
-const PROD_URL = require('../EC2.js').SERVICE_PROD_URL;
+const PROD_URL_ORI = require('../EC2.js').SERVICE_PROD_URL_ORI;
+const PROD_URL_DUP = require('../EC2.js').SERVICE_PROD_URL_DUP;
 
 const DEV_URL = '127.0.0.1:3002';
 
@@ -8,7 +9,7 @@ const DEV_URL = '127.0.0.1:3002';
 const getVideosGQL = (id, callback) => {
   console.log(id);
   $.ajax({
-    url: `http://${PROD_URL}/graphql`,
+    url: `http://${PROD_URL_ORI}/graphql`,
     type: 'POST',
     contentType: 'application/json',
     data: JSON.stringify({
