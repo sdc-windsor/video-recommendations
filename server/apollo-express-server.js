@@ -27,6 +27,12 @@ if (cluster.isMaster) {
 
   app.use(express.static(path.join(__dirname, '../dist'), { maxAge: '1m' }));
   app.use(cors());
+  app.get('*.js', (req, res, next) => {
+    req.url += '.gz';
+    res.set('Content-Encoding', 'gzip');
+    res.set('Content-Type', 'text/javascript');
+    next();
+  });
 
   const apolloServer = new ApolloServer({ typeDefs, resolvers });
   const port = process.env.PORT || 3002;
