@@ -16,17 +16,12 @@ const addTagAsync = require('../db-neo4j/queries/addTagAsync.js');
 const updatePlayCountAsync = require('../db-neo4j/queries/updatePlayCountAsync.js');
 const removeTagAsync = require('../db-neo4j/queries/removeTagAsync.js');
 
-const addImagePath = require('../utils/addImagePath.js');
-
-const localImagePath = '../../sample/images';
-const s3ImagePath = 'https://s3-us-west-1.amazonaws.com/elasticbeanstalk-us-west-1-730513610105/images';
-
 const typeDefs = gql`
   type Video {
     id: Int
     title: String
     author: String
-    thumbnail: String
+    thumbnailIndex: Int
     plays: Int
   }
   type Tag {
@@ -51,7 +46,7 @@ const resolvers = {
         .then((redisIdRes) => {
           if (redisIdRes !== null) {
             console.log(`fetched id results from redis in ${new Date() - start}ms`);
-            return addImagePath(redisIdRes, s3ImagePath);
+            return redisIdRes;
           }
           return getCategoryTagAsync(args.videoId)
             .then((categoryTagObject) => {
@@ -60,16 +55,16 @@ const resolvers = {
                 .then((redisCategoryTagRes) => {
                   if (redisCategoryTagRes !== null) {
                     console.log(`fetched category tag results from redis in ${new Date() - start}ms`);
-                    return addImagePath(redisCategoryTagRes, s3ImagePath);
+                    return redisCategoryTagRes;
                   }
-                  return getRecVideosAsync(categoryTagObject, s3ImagePath)
+                  return getRecVideosAsync(categoryTagObject)
                     .then((res) => {
                       HSETCategoryTag(redisClient, key, res)
                         .then(result => console.log('set new redis category tag success'));
                       HSETIdTag(redisClient, args.videoId, res)
                         .then(result => console.log('set new redis id success'));
                       console.log(`get rec videos in ${new Date() - start} ms`);
-                      return addImagePath(res, s3ImagePath);
+                      return res;
                     });
                 });
             });
@@ -80,7 +75,7 @@ const resolvers = {
       return addTagAsync(args.videoId, args.tagWord);
     },
     updatePlays(parent, args) {
-      return updatePlayCountAsync(args.videoId, s3ImagePath);
+      return updatePlayCountAsync(args.videoId);
     },
     removeTag(parent, args) {
       return removeTagAsync(args.videoId, args.tagWord);

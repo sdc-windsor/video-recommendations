@@ -13,6 +13,7 @@ export default class App extends Component {
       currentId: 9999999,
       allThumbnails: {},
       displayThumbnails: [],
+      imagePath: this.props.imagePath,
     };
   }
 
@@ -52,14 +53,14 @@ export default class App extends Component {
   }
 
   render() {
-    const { displayThumbnails } = this.state;
+    const { displayThumbnails, imagePath } = this.state;
 
     return (
       <div id="masterContainer">
         <div className="sidenav">
           <h4 id="title">Related Videos</h4>
           <Switch />
-          <VideoContainer thumbnails={displayThumbnails} changeVideo={this.changeVideo} />
+          <VideoContainer thumbnails={displayThumbnails} changeVideo={this.changeVideo} imagePath={imagePath} />
           { displayThumbnails.length < 100
             && (
             <div className="buttonContainer">
