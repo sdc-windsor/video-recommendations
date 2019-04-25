@@ -9,7 +9,7 @@ const DEV_URL = '127.0.0.1:3002';
 const getVideosGQL = (id, callback) => {
   console.log(id);
   $.ajax({
-    url: `http://${PROD_URL_ORI}/graphql`,
+    url: `http://${PROD_URL_DUP}/graphql`,
     type: 'POST',
     contentType: 'application/json',
     data: JSON.stringify({

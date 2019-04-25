@@ -1,7 +1,7 @@
 require('newrelic');
+const gzipStatic = require('connect-gzip-static');
 const cors = require('cors');
 const cluster = require('cluster');
-const http = require('http');
 const numCPUs = require('os').cpus().length;
 
 const { ApolloServer } = require('apollo-server-express');
@@ -9,6 +9,7 @@ const express = require('express');
 const path = require('path');
 const { typeDefs, resolvers } = require('./graphql-app.js');
 
+// use node cluster
 if (cluster.isMaster) {
   console.log(`Master ${process.pid} is running`);
 
@@ -21,18 +22,12 @@ if (cluster.isMaster) {
     console.log(`worker ${worker.process.pid} died`);
   });
 } else {
-  // Workers can share any TCP connection
-  // In this case it is an HTTP server
   const app = express();
+  // app.use(express.static(path.join(__dirname, '../dist'), { maxAge: '1m' }));
 
-  app.use(express.static(path.join(__dirname, '../dist'), { maxAge: '1m' }));
+  // serve .gz file instead
+  app.use(gzipStatic(path.join(__dirname, '../dist'), { maxAge: 86400000 }));
   app.use(cors());
-  app.get('*.js', (req, res, next) => {
-    req.url += '.gz';
-    res.set('Content-Encoding', 'gzip');
-    res.set('Content-Type', 'text/javascript');
-    next();
-  });
 
   const apolloServer = new ApolloServer({ typeDefs, resolvers });
   const port = process.env.PORT || 3002;
