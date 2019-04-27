@@ -1,4 +1,4 @@
-const htmlTemplate = reactDom => `
+const htmlTemplate = content => `
   <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -14,7 +14,7 @@ const htmlTemplate = reactDom => `
 
     </head>
     <body>
-        <div id="Recommendations">${reactDom}</div>
+        <div id="Recommendations">${content}</div>
         <script src="bundle.js"></script>
     </body>
   </html>
