@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Video = ({ thumbnail, changeVideo }) => (
+const Video = ({ thumbnail, changeVideo, imagePath }) => (
   <div className="thumbnailContainer">
     <div className="imageContainer" onClick={() => { changeVideo(thumbnail.id); }}>
-      <img className="thumbnailsImage" src={thumbnail.thumbnail} />
+      <img className="thumbnailsImage" src={`${imagePath}/${thumbnail.thumbnailIndex}.jpg`} />
     </div>
     <div>
       <div className="videoName">{thumbnail.title}</div>
