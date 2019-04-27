@@ -1,4 +1,3 @@
-require('newrelic');
 const gzipStatic = require('connect-gzip-static');
 const cors = require('cors');
 const cluster = require('cluster');

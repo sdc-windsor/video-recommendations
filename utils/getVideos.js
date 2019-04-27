@@ -27,7 +27,6 @@ const getVideosGQL = (id, callback) => {
     }),
   })
     .done((response) => {
-      console.log(response);
       const videos = response.data.getRecommendations;
       console.log(videos);
       callback(videos);

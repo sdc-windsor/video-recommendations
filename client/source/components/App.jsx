@@ -11,7 +11,7 @@ export default class App extends Component {
 
     this.state = {
       currentId: 9999999,
-      allThumbnails: {},
+      allThumbnails: [],
       displayThumbnails: [],
       imagePath: this.props.imagePath,
     };
@@ -25,31 +25,22 @@ export default class App extends Component {
   }
 
   addThumbnails() {
-    const { displayThumbnails, allThumbnails, currentId } = this.state;
+    const { displayThumbnails, allThumbnails } = this.state;
     const displayCount = displayThumbnails.length;
-    const newDisplay = displayThumbnails.concat(allThumbnails[currentId].slice(displayCount, displayCount + 10));
+    const newDisplay = displayThumbnails.concat(allThumbnails.slice(displayCount, displayCount + 10));
     this.setState({
       displayThumbnails: newDisplay,
     });
   }
 
   changeVideo(id) {
-    const { allThumbnails } = this.state;
-    if (allThumbnails[id]) {
+    this.props.getVideos(id, (res) => {
       this.setState({
         currentId: id,
-        displayThumbnails: allThumbnails[id].slice(0, 10),
+        allThumbnails: res,
+        displayThumbnails: res.slice(0, 10),
       });
-    } else {
-      this.props.getVideos(id, (res) => {
-        const cache = allThumbnails;
-        this.setState({
-          currentId: id,
-          allThumbnails: Object.assign({}, cache, { [id]: res }),
-          displayThumbnails: res.slice(0, 10),
-        });
-      });
-    }
+    });
   }
 
   render() {
