@@ -1,6 +1,15 @@
 # Video Recommendations
 
-> This is a brown field System Design project that refactors server and database code to scale
+> This is a brown field System Design project that refactors back-end code to handle up to 1000RPS with <1% error rate and <1000ms latency when accessing a database of 10 million records
+
+## Implementations
+- Server: both can be connected to either database
+  - Apollo-GraphQL-Express
+  - Express
+
+- Database: both include seeding script for 10 million records
+  - Neo4j
+  - MySQL
 
 ## Getting Started
 ### Prerequisite
@@ -134,19 +143,8 @@
       ```
       { data: { removeTag: { word: "avocado" } } }
       ```
-      
-## Implementations
-- Server: both can be connected to either MySQL or Neo4j
-  - Express
-  - Apollo-GraphQL-Express
-
-- DB
-  - MySQL
-  - Neo4j: query via either HTTP or Driver
-  
-- Others
-  - [Kanban board](https://github.com/orgs/sdc-windsor/projects/2)
 
 ## Related Projects
+- [Kanban board](https://github.com/orgs/sdc-windsor/projects/2)
 - Client-side legacy code by philxavier: https://github.com/rpt11-spider-n-sleet/felipe-service
   
